@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  
   <link rel="stylesheet" href="LogIn.css">
 </head>
 <body>
@@ -45,9 +44,6 @@
 </body>
 </html>
 
-
-
-
 <?php
 session_start(); // بدء الجلسة لتخزين بيانات الجلسة
 
@@ -58,10 +54,10 @@ if(isset($_POST["login"])) {
     // الاتصال بقاعدة البيانات
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $db_password = "";
     $dbname = "login";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
 
     // التحقق من الاتصال
     if ($conn->connect_error) {
@@ -81,7 +77,8 @@ if(isset($_POST["login"])) {
             $_SESSION["user_id"] = $row["id"];
             $_SESSION["user_email"] = $row["email"];
             // يمكنك إعادة توجيه المستخدم إلى الصفحة المناسبة هنا
-            echo "Login successful!";
+            header("location: book_ticket.php");
+            exit;
         } else {
             // كلمة المرور غير صحيحة
             echo "Invalid password!";

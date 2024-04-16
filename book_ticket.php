@@ -4,7 +4,7 @@ session_start();
 // التحقق من تسجيل الدخول
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // إذا لم يكن المستخدم مسجل الدخول، قم بتوجيهه إلى صفحة تسجيل الدخول
-    header("location: login.php");
+    header("location: register.php");
     exit;
 }
 ?>
