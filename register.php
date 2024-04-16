@@ -24,6 +24,16 @@
             <p class="socials-divider"><span>or</span></p>
 
             <form action="" method="post">
+                <label for="first_name">First Name</label>
+                <div class="input-container">
+                    <input type="text" name="first_name" placeholder="Your first name" id="first_name" required>
+                </div>
+                
+                <label for="last_name">Last Name</label>
+                <div class="input-container">
+                    <input type="text" name="last_name" placeholder="Your last name" id="last_name" required>
+                </div>
+
                 <label for="email">Email address</label>
                 <div class="email-input-container">
                     <i class="fi fi-rr-envelope icon-email"></i>
@@ -43,6 +53,8 @@
             <?php
             if(isset($_POST["register"])) {
                 // استرجاع البيانات المرسلة من النموذج
+                $first_name = $_POST["first_name"];
+                $last_name = $_POST["last_name"];
                 $email = $_POST["email_address"];
                 $password = $_POST["password"];
 
@@ -71,7 +83,7 @@
                     echo "This email address is already registered.";
                 } else {
                     // استعلام SQL لإدراج البيانات في قاعدة البيانات
-                    $insert_query = "INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')";
+                    $insert_query = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$hashed_password')";
 
                     if ($conn->query($insert_query) === TRUE) {
                         echo "Account has been successfully registered";
