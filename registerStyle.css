@@ -1,0 +1,104 @@
+body {
+    font-family: chloe;
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+
+.img-and-text {
+    text-align: center;
+}
+
+.cart-illustration {
+    width: 200px;
+}
+
+.right-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    max-width: 300px;
+}
+
+.sign-up-buttons {
+    margin-bottom: 20px;
+}
+
+
+
+#sign-up {
+    background-color: #4285F4;
+    color: white;
+}
+
+
+
+
+.form-container {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+.input-container {
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.agreement-check {
+    margin-bottom: 20px;
+}
+
+.terms-of-use-text {
+    font-size: 14px;
+}
+
+#register-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+#register-button:hover {
+    opacity: 0.8;
+}
