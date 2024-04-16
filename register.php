@@ -58,41 +58,53 @@
 </form>
 <a href="VistSaudi.php">Back </a>
 
-            <?php
-            if(isset($_POST["register"])) {
-                // استرجاع البيانات المرسلة من النموذج
-                $first_name = $_POST["first_name"];
-                $last_name = $_POST["last_name"];
-                $email = $_POST["email_address"];
-                $password = $_POST["password"];
+<?php
+// تحقق من أن النموذج قد تم إرساله
+if(isset($_POST["register"])) {
+    // استرجاع البيانات المرسلة من النموذج
+    $first_name = $_POST["first_name"];
+    $last_name = $_POST["last_name"];
+    $email = $_POST["email_address"];
+    $password = $_POST["password"];
 
-                // الاتصال بقاعدة البيانات
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "login";
+    // تشفير كلمة المرور
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // إنشاء الاتصال
-                $conn = new mysqli($servername, $username, $password, $dbname);
+    // الاتصال بقاعدة البيانات
+    $servername = "localhost";
+    $username = "root";
+    $db_password = "";
+    $dbname = "login";
 
-                // التحقق من الاتصال
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+    // إنشاء الاتصال
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
 
-                // تنفيذ استعلام SQL لإدراج البيانات في قاعدة البيانات
-                $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$password')";
+    // التحقق من الاتصال
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-                if ($conn->query($sql) === TRUE) {
-                    echo "Account has been successfully registered";
-                } else {
-                    echo "An error occurred while registering the account" . $conn->error;
-                }
+    // استعلام SQL للتحقق من وجود مستخدم بنفس البريد الإلكتروني
+    $check_email_query = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($check_email_query);
 
-                // إغلاق الاتصال بقاعدة البيانات
-                $conn->close();
-            }
-            ?>
+    if ($result->num_rows > 0) {
+        echo "This email address is already registered.";
+    } else {
+        // استعلام SQL لإدراج البيانات في قاعدة البيانات
+        $insert_query = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$hashed_password')";
+
+        if ($conn->query($insert_query) === TRUE) {
+            echo "Account has been successfully registered";
+        } else {
+            echo "An error occurred while registering the account" . $conn->error;
+        }
+    }
+
+    // إغلاق الاتصال بقاعدة البيانات
+    $conn->close();
+}
+?>
 
           </div>
         </div>
