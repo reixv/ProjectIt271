@@ -317,19 +317,19 @@
 }
 /* images */
 .services__card:nth-child(1) {
-  background-image: url('viaRiyadh.png'); 
+  background-image: url('AloqilatMuseum.jpeg'); 
 }
 
 .services__card:nth-child(2) {
-  background-image: url('AlMasmak.jpeg'); /* Replace with your second image URL */
+  background-image: url('KlijaFestival.jpeg'); /* Replace with your second image URL */
 }
 
 .services__card:nth-child(3) {
-  background-image: url('BujairiTerrace.jpeg'); /* Replace with your third image URL */
+  background-image: url('JadatAlnakheel.jpeg'); /* Replace with your third image URL */
 }
 
 .services__card:nth-child(4) {
-  background-image: url('diriyahbiennale.jpeg'); /* Replace with your fourth image URL */
+  background-image: url('AlhiwasProtectedAreas.jpeg'); /* Replace with your fourth image URL */
 }
 
 .services__card h2 {
