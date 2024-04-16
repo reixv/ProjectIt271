@@ -24,87 +24,66 @@
             <p class="socials-divider"><span>or</span></p>
 
             <form action="" method="post">
-    <label for="first_name">First Name</label>
-    <div class="input-container">
-        <input type="text" name="first_name" placeholder="Your first name" id="first_name">
-    </div>
-    
-    <label for="last_name">Last Name</label>
-    <div class="input-container">
-        <input type="text" name="last_name" placeholder="Your last name" id="last_name">
-    </div>
-    
-    <label for="email">Email address</label>
-    <div class="email-input-container">
-        <i class="fi fi-rr-envelope icon-email"></i>
-        <input type="email" name="email_address" placeholder="example@gmail.com" id="email">
-    </div>
-    
-    <label for="password">Password</label>
-    <div class="password-input-container">
-        <i class="fi fi-rr-lock icon-password"></i>
-        <input type="password" name="password" placeholder="Your password" id="password">
-    </div>
-    
-    <div class="agreement-check">
-        <input type="checkbox" name="terms_of_service_and_privacy_policy">
-        <span class="terms-of-use-text">I agree to Platform's
-            <a href="#">Terms of Service</a> and
-            <a href="#">Privacy Policy</a>
-        </span>
-    </div>
-    
-    <button id="register-button" type="submit" name="register">Create Account</button>
-</form>
-<a href="VistSaudi.php">Back </a>
+                <label for="email">Email address</label>
+                <div class="email-input-container">
+                    <i class="fi fi-rr-envelope icon-email"></i>
+                    <input type="email" name="email_address" placeholder="example@gmail.com" id="email" required>
+                </div>
+                
+                <label for="password">Password</label>
+                <div class="password-input-container">
+                    <i class="fi fi-rr-lock icon-password"></i>
+                    <input type="password" name="password" placeholder="Your password" id="password" required>
+                </div>
+                
+                <button id="register-button" type="submit" name="register">Create Account</button>
+            </form>
+            <a href="VistSaudi.php">Back </a>
 
-<?php
-// تحقق من أن النموذج قد تم إرساله
-if(isset($_POST["register"])) {
-    // استرجاع البيانات المرسلة من النموذج
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $email = $_POST["email_address"];
-    $password = $_POST["password"];
+            <?php
+            if(isset($_POST["register"])) {
+                // استرجاع البيانات المرسلة من النموذج
+                $email = $_POST["email_address"];
+                $password = $_POST["password"];
 
-    // تشفير كلمة المرور
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                // تشفير كلمة المرور
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // الاتصال بقاعدة البيانات
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "login";
+                // الاتصال بقاعدة البيانات
+                $servername = "localhost";
+                $username = "root";
+                $db_password = "";
+                $dbname = "login";
 
-    // إنشاء الاتصال
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
+                // إنشاء الاتصال
+                $conn = new mysqli($servername, $username, $db_password, $dbname);
 
-    // التحقق من الاتصال
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+                // التحقق من الاتصال
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
 
-    // استعلام SQL للتحقق من وجود مستخدم بنفس البريد الإلكتروني
-    $check_email_query = "SELECT * FROM users WHERE email = '$email'";
-    $result = $conn->query($check_email_query);
+                // استعلام SQL للتحقق من وجود مستخدم بنفس البريد الإلكتروني
+                $check_email_query = "SELECT * FROM users WHERE email = '$email'";
+                $result = $conn->query($check_email_query);
 
-    if ($result->num_rows > 0) {
-        echo "This email address is already registered.";
-    } else {
-        // استعلام SQL لإدراج البيانات في قاعدة البيانات
-        $insert_query = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$hashed_password')";
+                if ($result->num_rows > 0) {
+                    echo "This email address is already registered.";
+                } else {
+                    // استعلام SQL لإدراج البيانات في قاعدة البيانات
+                    $insert_query = "INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')";
 
-        if ($conn->query($insert_query) === TRUE) {
-            echo "Account has been successfully registered";
-        } else {
-            echo "An error occurred while registering the account" . $conn->error;
-        }
-    }
+                    if ($conn->query($insert_query) === TRUE) {
+                        echo "Account has been successfully registered";
+                    } else {
+                        echo "An error occurred while registering the account" . $conn->error;
+                    }
+                }
 
-    // إغلاق الاتصال بقاعدة البيانات
-    $conn->close();
-}
-?>
+                // إغلاق الاتصال بقاعدة البيانات
+                $conn->close();
+            }
+            ?>
 
           </div>
         </div>
