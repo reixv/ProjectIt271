@@ -1,9 +1,7 @@
 <?php
-session_start();
+session_start(); // بدء جلسة جديدة
 
-// التحقق من تسجيل الدخول
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // إذا لم يكن المستخدم مسجل الدخول، قم بتوجيهه إلى صفحة تسجيل الدخول
     header("location: login.php");
     exit;
 }
@@ -14,7 +12,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Form</title>
+    <title>Book Ticket</title>
     <link rel="stylesheet" href="T.css">
 </head>
 <body>
@@ -44,7 +42,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </div>
             <div class="form-group">
                 <fieldset>
-                    <legend>Are you bringing any additional guests/friends & family:</legend>
+                    <legend>Are you bringing any guests?</legend>
                     <label><input type="radio" name="guests" value="yes"> Yes</label>
                     <label><input type="radio" name="guests" value="no" checked> No</label>
                 </fieldset>
@@ -92,24 +90,35 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const guestsRadio = document.querySelector('input[name="guests"]');
-            const guestsNumber = document.getElementById("guestsNumber");
+            const guestsYesRadio = document.querySelector('input[name="guests"][value="yes"]');
+            const guestsNoRadio = document.querySelector('input[name="guests"][value="no"]');
+            const guestsNumberDiv = document.getElementById("guestsNumber");
 
-            guestsRadio.addEventListener("change", function() {
-                if (this.value === "yes") {
-                    guestsNumber.style.display = "block";
+            // إظهار أو إخفاء حقل عدد الضيوف بناءً على اختيار الضيوف
+            function toggleGuestNumberDisplay() {
+                if (guestsYesRadio.checked) {
+                    guestsNumberDiv.style.display = "block";
                 } else {
-                    guestsNumber.style.display = "none";
+                    guestsNumberDiv.style.display = "none";
                 }
-            });
+            }
+
+            guestsYesRadio.addEventListener("change", toggleGuestNumberDisplay);
+            guestsNoRadio.addEventListener("change", toggleGuestNumberDisplay);
         });
     </script>
 </body>
 </html>
-
 <?php
+session_start(); // بدء جلسة جديدة
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("location: login.php");
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // استرجاع البيانات المرسلة من النموذج
+    // استقبال البيانات من النموذج
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
@@ -122,7 +131,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST["date"];
     $class = $_POST["class"];
 
-    // عرض معلومات المستخدم
+    // هنا يمكنك إضافة كود لتخزين هذه البيانات في قاعدة البيانات أو إجراء معالجات أخرى
+    // عرض معلومات المستخدم للتأكيد
     echo "<h2>User Information:</h2>";
     echo "<p><strong>First Name:</strong> $firstname</p>";
     echo "<p><strong>Last Name:</strong> $lastname</p>";

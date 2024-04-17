@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Register</title>
   <link rel="stylesheet" href="registerStyle.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
       <div class="grid-container">
         <div class="left-side">
           <div class="img-and-text">
-            <img class="cart-illustration" src="img/cart-illustration.png" alt="">
+            <img class="cart-illustration" src="img/cart-illustration.png" alt="Cart Illustration">
           </div>
         </div>
         <div class="right-side">
@@ -23,7 +23,7 @@
             <div class="sign-up-buttons"></div>
             <p class="socials-divider"><span>or</span></p>
 
-            <form action="" method="post">
+            <form action="register.php" method="post">
                 <label for="first_name">First Name</label>
                 <div class="input-container">
                     <input type="text" name="first_name" placeholder="Your first name" id="first_name" required>
@@ -53,9 +53,9 @@
             <?php
             if(isset($_POST["register"])) {
                 // استرجاع البيانات المرسلة من النموذج
-                $first_name = $_POST["first_name"];
-                $last_name = $_POST["last_name"];
-                $email = $_POST["email_address"];
+                $first_name = htmlspecialchars($_POST["first_name"]);
+                $last_name = htmlspecialchars($_POST["last_name"]);
+                $email = htmlspecialchars($_POST["email_address"]);
                 $password = $_POST["password"];
 
                 // تشفير كلمة المرور
@@ -75,24 +75,26 @@
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                // استعلام SQL للتحقق من وجود مستخدم بنفس البريد الإلكتروني
-                $check_email_query = "SELECT * FROM users WHERE email = '$email'";
-                $result = $conn->query($check_email_query);
+                // استعلام SQL باستخدام prepared statement
+                $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
                 if ($result->num_rows > 0) {
                     echo "This email address is already registered.";
                 } else {
-                    // استعلام SQL لإدراج البيانات في قاعدة البيانات
-                    $insert_query = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$hashed_password')";
-
-                    if ($conn->query($insert_query) === TRUE) {
+                    $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
+                    $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
+                    if ($stmt->execute()) {
                         echo "Account has been successfully registered";
                     } else {
-                        echo "An error occurred while registering the account" . $conn->error;
+                        echo "An error occurred while registering the account: " . $stmt->error;
                     }
                 }
 
                 // إغلاق الاتصال بقاعدة البيانات
+                $stmt->close();
                 $conn->close();
             }
             ?>
