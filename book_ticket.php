@@ -85,7 +85,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Search">
+                <input type="submit" value="Book a Ticket">
             </div>
         </form>
     </div>
@@ -106,6 +106,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </script>
 </body>
 </html>
+
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // استرجاع البيانات المرسلة من النموذج
@@ -115,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $_POST["phone"];
     $age = $_POST["age"];
     $guests = $_POST["guests"];
-    $guestNumber = $_POST["guestNumber"];
+    $guestNumber = isset($_POST["guestNumber"]) ? $_POST["guestNumber"] : "N/A";
     $from = $_POST["from"];
     $to = $_POST["to"];
     $date = $_POST["date"];
