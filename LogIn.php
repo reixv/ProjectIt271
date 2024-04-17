@@ -1,24 +1,21 @@
 <?php
-session_start(); // Start the session to store session data
+session_start();
 
 if (isset($_POST["login"])) {
-    $email = $_POST["email"]; // Retrieve email from form
-    $password = $_POST["password"]; // Retrieve password from form
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-    // Database connection details
+    // بيانات الاتصال بقاعدة البيانات
     $servername = "localhost";
     $username = "root";
     $db_password = "";
     $dbname = "login";
 
     $conn = new mysqli($servername, $username, $db_password, $dbname);
-
-    // Check the connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Prepared statement to prevent SQL injection
     $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -26,13 +23,11 @@ if (isset($_POST["login"])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // Verify the password
         if (password_verify($password, $row["password"])) {
-            // Login successful
             $_SESSION["loggedin"] = true;
             $_SESSION["user_id"] = $row["id"];
             $_SESSION["user_email"] = $row["email"];
-            header("location: book_ticket.php"); // Redirect to the ticket booking page
+            header("location: book_ticket.php");
             exit;
         } else {
             echo "Invalid password!";
@@ -40,11 +35,11 @@ if (isset($_POST["login"])) {
     } else {
         echo "No user found with this email address!";
     }
-
-    $stmt->close(); // Close the statement
-    $conn->close(); // Close the connection
+    $stmt->close();
+    $conn->close();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +55,7 @@ if (isset($_POST["login"])) {
       <div class="grid-container">
         <div class="left-side">
           <div class="img-and-text">
-            <img class="cart-illustration" src="img/cart-illustration.png" alt="Cart Illustration">
+            <img class="cart-illustration" src="" alt="Cart Illustration">
           </div>
         </div>
         <div class="right-side">
