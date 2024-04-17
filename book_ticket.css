@@ -33,10 +33,19 @@ body, html {
 }
 
 h2 {
+   
+
     text-align: center;
     text-transform: uppercase;
     background-image: url('background_ticket.jpeg');
+    background-size: cover; /* Make the background image cover the entire element */
+    background-position: center; /* Center the background image */
+    color: white; /* Text color */
+    padding: 20px 0; /* Padding around the text */
+    margin: 0; /* Remove default margin */
 }
+
+
 
 .form-group {
     margin-bottom: 20px;
