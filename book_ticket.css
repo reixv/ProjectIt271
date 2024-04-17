@@ -1,4 +1,3 @@
-/* Import Chloe font from Google Fonts or replace with your own source */
 @import url('https://fonts.googleapis.com/css2?family=Chloe&display=swap');
 
 body, html {
@@ -7,22 +6,29 @@ body, html {
     font-family: 'Chloe', sans-serif; /* Fallback to sans-serif if Chloe isn't available */
 }
 
-.ticket-form {
-    background: url('background_ticket.jpeg') no-repeat center center fixed;
+.background-header {
+    background: url('background_ticket.jpeg') no-repeat center center;
     background-size: cover;
     padding: 40px;
-    max-width: 600px;
-    margin: auto;
     color: white;
+    text-align: center;
+    text-transform: uppercase;
+    height: 200px; /* Set the height of the header */
+}
+
+.ticket-form {
+    background-color: #ffffff; /* Add a white background to the form */
+    padding: 40px;
+    max-width: 600px;
+    margin: 50px auto 0; /* Adjust top margin to separate from header */
+    color: black; /* Change text color for better readability on white background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    position: relative;
-    top: 50px;
+    border: 1px solid #000; /* Black border around the form */
 }
 
 h2 {
-    text-align: center;
-    text-transform: uppercase;
+    margin-top: 0; /* Remove top margin from h2 to align it better within the header */
 }
 
 .form-group {
@@ -61,7 +67,6 @@ h2 {
     background-color: #4cae4c;
 }
 
-/* Additional styles for radio buttons and their labels */
 .form-group fieldset {
     border: none;
 }
@@ -70,7 +75,6 @@ h2 {
     margin-right: 5px;
 }
 
-/* Style for the footer, if you have one */
 .footer {
     background-color: #f8f9fa;
     text-align: center;
