@@ -110,7 +110,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 </body>
 </html>
 <?php
-session_start(); // بدء جلسة جديدة
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: login.php");
