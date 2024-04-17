@@ -1,3 +1,50 @@
+<?php
+session_start(); // Start the session to store session data
+
+if (isset($_POST["login"])) {
+    $email = $_POST["email"]; // Retrieve email from form
+    $password = $_POST["password"]; // Retrieve password from form
+
+    // Database connection details
+    $servername = "localhost";
+    $username = "root";
+    $db_password = "";
+    $dbname = "login";
+
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // Verify the password
+        if (password_verify($password, $row["password"])) {
+            // Login successful
+            $_SESSION["loggedin"] = true;
+            $_SESSION["user_id"] = $row["id"];
+            $_SESSION["user_email"] = $row["email"];
+            header("location: book_ticket.php"); // Redirect to the ticket booking page
+            exit;
+        } else {
+            echo "Invalid password!";
+        }
+    } else {
+        echo "No user found with this email address!";
+    }
+
+    $stmt->close(); // Close the statement
+    $conn->close(); // Close the connection
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +60,7 @@
       <div class="grid-container">
         <div class="left-side">
           <div class="img-and-text">
-            <img class="cart-illustration" src="img/cart-illustration.png" alt="">
+            <img class="cart-illustration" src="img/cart-illustration.png" alt="Cart Illustration">
           </div>
         </div>
         <div class="right-side">
@@ -23,71 +70,20 @@
               <label for="email">Email address</label>
               <div class="email-input-container">
                 <i class="fi fi-rr-envelope icon-email"></i>
-                <input type="email" name="email" placeholder="Your email address" id="email">
+                <input type="email" name="email" placeholder="Your email address" id="email" required>
               </div>
               <label for="password">Password</label>
               <div class="password-input-container">
                 <i class="fi fi-rr-lock icon-password"></i>
-                <input type="password" name="password" placeholder="Your password" id="password">
+                <input type="password" name="password" placeholder="Your password" id="password" required>
               </div>
               <button id="login-button" type="submit" name="login">Log in</button>
             </form>
-            <a href="register.php">Back </a>
-
+            <a href="register.php">Need an account? Register here.</a>
           </div>
         </div>
       </div>
     </div>
-
   </main>
-
 </body>
 </html>
-
-<?php
-session_start(); // بدء الجلسة لتخزين بيانات الجلسة
-
-if(isset($_POST["login"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-    // الاتصال بقاعدة البيانات
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "login";
-
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
-
-    // التحقق من الاتصال
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // استعلام SQL لاسترداد بيانات المستخدم باستخدام البريد الإلكتروني
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // إذا كان هناك سجل متطابق مع البريد الإلكتروني
-        $row = $result->fetch_assoc();
-        // التحقق مما إذا كانت كلمة المرور صحيحة
-        if (password_verify($password, $row["password"])) {
-            // تسجيل الدخول بنجاح
-            $_SESSION["user_id"] = $row["id"];
-            $_SESSION["user_email"] = $row["email"];
-            // يمكنك إعادة توجيه المستخدم إلى الصفحة المناسبة هنا
-            header("location: book_ticket.php");
-            exit;
-        } else {
-            // كلمة المرور غير صحيحة
-            echo "Invalid password!";
-        }
-    } else {
-        // لم يتم العثور على مستخدم مع هذا البريد الإلكتروني
-        echo "No user found with this email address!";
-    }
-
-    $conn->close();
-}
-?>
