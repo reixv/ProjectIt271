@@ -17,8 +17,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 </head>
 <body>
     <div class="ticket-form">
-        <h2>Book Ticket</h2>
-        <h2>Let’s create your entrance Ticket!</h2>
+        <h2>Book Ticket
+            <br>
+        Let’s create your entrance Ticket!</h2>
         <form action="book_ticket.php" method="post">
             <div class="form-group">
                 <label for="firstname">First Name:</label>
