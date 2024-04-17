@@ -1,93 +1,84 @@
+<?php
+session_start();
+
+// التحقق من تسجيل الدخول
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // إذا لم يكن المستخدم مسجل الدخول، قم بتوجيهه إلى صفحة تسجيل الدخول
+    header("location: login.php");
+    exit;
+}
+
+// تحقق مما إذا تم إرسال بيانات الحجز
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // استقبال بيانات الحجز
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $age = $_POST["age"];
+    $guests = isset($_POST["guests"]) ? $_POST["guests"] : "no";
+    $guestNumber = isset($_POST["guestNumber"]) ? $_POST["guestNumber"] : "";
+    $from = $_POST["from"];
+    $to = $_POST["to"];
+    $date = $_POST["date"];
+    $class = $_POST["class"];
+
+    // عرض بيانات الحجز
+    echo "<h2>Booking Details:</h2>";
+    echo "<p>First Name: $firstname</p>";
+    echo "<p>Last Name: $lastname</p>";
+    echo "<p>Email: $email</p>";
+    echo "<p>Phone Number: $phone</p>";
+    echo "<p>Age: $age</p>";
+    echo "<p>Bringing Guests: $guests</p>";
+    if ($guests == "yes") {
+        echo "<p>Number of Guests: $guestNumber</p>";
+    }
+    echo "<p>From: $from</p>";
+    echo "<p>To Activity: $to</p>";
+    echo "<p>Date of Visit: $date</p>";
+    echo "<p>Class: $class</p>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="LogIn.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Form</title>
+    <link rel="stylesheet" href="T.css">
 </head>
 <body>
-  <main>
-    <div class="page-container">
-      <div class="grid-container">
-        <div class="left-side">
-          <div class="img-and-text">
-            <img class="cart-illustration" src="img/cart-illustration.png" alt="">
-          </div>
-        </div>
-        <div class="right-side">
-          <div class="wrapper">
-            <h2>Welcome Back!</h2>
-            <form action="" method="post">
-              <label for="email">Email address</label>
-              <div class="email-input-container">
-                <i class="fi fi-rr-envelope icon-email"></i>
-                <input type="email" name="email" placeholder="Your email address" id="email">
-              </div>
-              <label for="password">Password</label>
-              <div class="password-input-container">
-                <i class="fi fi-rr-lock icon-password"></i>
-                <input type="password" name="password" placeholder="Your password" id="password">
-              </div>
-              <button id="login-button" type="submit" name="login">Log in</button>
-            </form>
-            <a href="register.php">Back </a>
-
-          </div>
-        </div>
-      </div>
+    <div class="ticket-form">
+        <h2>Book Ticket</h2>
+        <h2>Let’s create your entrance Ticket!</h2>
+        <form action="book_ticket.php" method="post">
+            <div class="form-group">
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" name="firstname" required>
+            </div>
+            <!-- الحقول الأخرى لبيانات الحجز -->
+            <!-- ... -->
+            <div class="form-group">
+                <input type="submit" value="Search">
+            </div>
+        </form>
     </div>
 
-  </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const guestsRadio = document.querySelector('input[name="guests"]');
+            const guestsNumber = document.getElementById("guestsNumber");
 
+            guestsRadio.addEventListener("change", function() {
+                if (this.value === "yes") {
+                    guestsNumber.style.display = "block";
+                } else {
+                    guestsNumber.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
-<?php
-session_start(); // بدء الجلسة لتخزين بيانات الجلسة
-
-if(isset($_POST["login"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-    // الاتصال بقاعدة البيانات
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "login";
-
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
-
-    // التحقق من الاتصال
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // استعلام SQL لاسترداد بيانات المستخدم باستخدام البريد الإلكتروني
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // إذا كان هناك سجل متطابق مع البريد الإلكتروني
-        $row = $result->fetch_assoc();
-        // التحقق مما إذا كانت كلمة المرور صحيحة
-        if (password_verify($password, $row["password"])) {
-            // تسجيل الدخول بنجاح
-            $_SESSION["user_id"] = $row["id"];
-            $_SESSION["user_email"] = $row["email"];
-            // يمكنك إعادة توجيه المستخدم إلى الصفحة المناسبة هنا
-            header("location: book_ticket.php");
-            exit;
-        } else {
-            // كلمة المرور غير صحيحة
-            echo "Invalid password!";
-        }
-    } else {
-        // لم يتم العثور على مستخدم مع هذا البريد الإلكتروني
-        echo "No user found with this email address!";
-    }
-
-    $conn->close();
-}
-?>

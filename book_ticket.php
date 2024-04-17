@@ -106,3 +106,35 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </script>
 </body>
 </html>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // استرجاع البيانات المرسلة من النموذج
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $age = $_POST["age"];
+    $guests = $_POST["guests"];
+    $guestNumber = $_POST["guestNumber"];
+    $from = $_POST["from"];
+    $to = $_POST["to"];
+    $date = $_POST["date"];
+    $class = $_POST["class"];
+
+    // عرض معلومات المستخدم
+    echo "<h2>User Information:</h2>";
+    echo "<p><strong>First Name:</strong> $firstname</p>";
+    echo "<p><strong>Last Name:</strong> $lastname</p>";
+    echo "<p><strong>Email Address:</strong> $email</p>";
+    echo "<p><strong>Phone Number:</strong> $phone</p>";
+    echo "<p><strong>Age:</strong> $age</p>";
+    echo "<p><strong>Bringing additional guests:</strong> $guests</p>";
+    if ($guests == 'yes') {
+        echo "<p><strong>Number of Guests:</strong> $guestNumber</p>";
+    }
+    echo "<p><strong>From:</strong> $from</p>";
+    echo "<p><strong>To Activity:</strong> $to</p>";
+    echo "<p><strong>Date of Visit:</strong> $date</p>";
+    echo "<p><strong>Class:</strong> $class</p>";
+}
+?>
