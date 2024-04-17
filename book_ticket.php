@@ -58,12 +58,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     <option value="5">5</option>
                 </select>
             </div>
+            
             <div class="form-group">
-                <label for="from">From:</label>
-                <input type="text" id="from" name="from" required>
-            </div>
-            <div class="form-group">
-                <label for="to">To Activity:</label>
+                <label for="to">choose  Activity:</label>
                 <select id="to" name="to" required>
                     <option value="maraya">Maraya Alula</option>
                     <option value="wonder">Wonder Garden Riyadh</option>
@@ -76,13 +73,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <label for="date">Date of Visit:</label>
                 <input type="date" id="date" name="date" required>
             </div>
-            <div class="form-group">
-                <label for="class">Class:</label>
-                <select id="class" name="class" required>
-                    <option value="economy">Economy</option>
-                    <option value="business">Business</option>
-                </select>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Book a Ticket">
             </div>
@@ -126,10 +117,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $age = $_POST["age"];
     $guests = $_POST["guests"];
     $guestNumber = isset($_POST["guestNumber"]) ? $_POST["guestNumber"] : "N/A";
-    $from = $_POST["from"];
+    /*$from = $_POST["from"];*/
     $to = $_POST["to"];
     $date = $_POST["date"];
-    $class = $_POST["class"];
+    /*$class = $_POST["class"];*/
 
     // هنا يمكنك إضافة كود لتخزين هذه البيانات في قاعدة البيانات أو إجراء معالجات أخرى
     // عرض معلومات المستخدم للتأكيد
@@ -143,9 +134,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($guests == 'yes') {
         echo "<p><strong>Number of Guests:</strong> $guestNumber</p>";
     }
-    echo "<p><strong>From:</strong> $from</p>";
+    /*echo "<p><strong>From:</strong> $from</p>";*/
     echo "<p><strong>To Activity:</strong> $to</p>";
     echo "<p><strong>Date of Visit:</strong> $date</p>";
-    echo "<p><strong>Class:</strong> $class</p>";
+    /*echo "<p><strong>Class:</strong> $class</p>";*/
 }
 ?>

@@ -101,3 +101,43 @@ h2 {
     bottom: 0;
     width: 100%;
 }
+.ticket-display {
+    background-color: #fff;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.ticket-display h2 {
+    color: #333;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.ticket-display p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.ticket-display p strong {
+    color: #333;
+    font-weight: bold;
+}
+
+/* تصميم خاص للأقسام التي تظهر فقط عند اختيار 'yes' للضيوف */
+.ticket-display .conditional {
+    display: none;
+    margin-top: 10px;
+}
+
+/* استخدام الفئة .show لعرض الأقسام الشرطية عند الحاجة */
+.ticket-display .show {
+    display: block;
+}
