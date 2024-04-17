@@ -36,6 +36,7 @@
             <li><a href="#projects" data-after="Projects">Where to go </a></li>
             <li><a href="#services" data-after="Service">Plan your trip</a></li>
             <li><a href="#about" data-after="About">About</a></li>
+            <li><a href="#why" data-after="Why">Why us</a></li>
             <li><a href="#footer" data-after="footer">Contact</a></li>
 
         
@@ -231,6 +232,43 @@
 
   <!-- End About Section -->
 
+
+
+<!-- Why us Section -->
+<section id="why" class="whyus container">
+  <div>
+    <h1 class="section-title">Why  us </h1>
+    <h1 > We Make All The Process Esay </h1>
+  </div>
+  <div class="why-its">
+    <div class="why-it">
+      <div class="icon"><img src="Image/best.jpg"/></div>
+      <div class="why-info">
+        <h1>Best Travel Agent</h1>
+        <h2>A guided trip into the wilderness is an excellent way
+          to bond
+          with friend or have a memorable time with your family!.</h2>
+        
+      </div>
+    </div>
+    <div class="why-it">
+      <div class="icon"><img src="Image/price.jpg" /></div>
+      <div class="why-info">
+        
+<h1>Best price Guarantee</h1>
+        <h2>strive to ensure the best possible rates and will continue to monitor for any discounts or promotions that may apply to your reservation.</h2>
+      </div>
+    </div>
+    <div class="why-it">
+      <div class="icon"><img src="Image/pass.jpg" /></div>
+      <div class="why-info">
+        <h1>Passionate Travel</h1>
+        <h2> Let us inspire you, guide you, and accompany you on a journey filled with wonder, discovery, and unforgettable memories.</h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Why us Section -->
 
 
   <!-- Footer contact -->

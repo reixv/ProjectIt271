@@ -503,6 +503,70 @@ background-color: #E0EDF3;
 	}
 	/* End About */
 
+
+
+	/*  why Section */
+
+
+	.whyus { 
+		display: flex; 
+		flex-direction: column;
+		max-width: 1200px;
+		margin: 0 auto;
+		width: 90%;
+	  }
+	
+	  .why-its {
+		display: flex; 
+		justify-content: space-between; 
+		flex-wrap: wrap; 
+		width: 100%;
+	  }
+	
+	  .why-it {
+		flex: 0 0 calc(33.33% - 60px); 
+		padding: 20px;
+		text-align: center;
+		border-radius: 10px;
+		margin: 15px;
+		display: flex;
+		justify-content: center;
+		align-items: center; 
+		flex-direction: column;
+		box-shadow: 0px 0px 18px 0 #0000002c;
+		transition: 0.3s ease box-shadow;
+	  }
+	
+	  .why-it:hover {
+		box-shadow: 0px 0px 5px 0 #0000002c;
+	  }
+	
+	  .icon {
+		width: 200px;
+		margin-bottom: 10px;
+	  }
+	
+	  .why-info h1 {
+		font-size: 2.5rem;
+		font-weight: 500;
+		margin-bottom: 5px;
+	  }
+	
+	  .why-info h2 {
+		font-size: 1.3rem;
+		line-height: 2rem;
+		font-weight: 500;
+	  }
+
+	/* End why Section */
+
+
+
+
+
+
+
+
 	/* contact  */
 	
 	/* End contact  */
