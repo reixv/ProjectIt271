@@ -242,7 +242,7 @@
   </div>
   <div class="why-its">
     <div class="why-it">
-      <div class="icon"><img src="Image/best.jpg"/></div>
+      <div class="icon"><img src="best.jpg"/></div>
       <div class="why-info">
         <h1>Best Travel Agent</h1>
         <h2>A guided trip into the wilderness is an excellent way
@@ -252,7 +252,7 @@
       </div>
     </div>
     <div class="why-it">
-      <div class="icon"><img src="Image/price.jpg" /></div>
+      <div class="icon"><img src="price.jpg" /></div>
       <div class="why-info">
         
 <h1>Best price Guarantee</h1>
@@ -260,7 +260,7 @@
       </div>
     </div>
     <div class="why-it">
-      <div class="icon"><img src="Image/pass.jpg" /></div>
+      <div class="icon"><img src="pass.jpg" /></div>
       <div class="why-info">
         <h1>Passionate Travel</h1>
         <h2> Let us inspire you, guide you, and accompany you on a journey filled with wonder, discovery, and unforgettable memories.</h2>
