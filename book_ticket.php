@@ -4,7 +4,7 @@ session_start();
 // التحقق من تسجيل الدخول
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // إذا لم يكن المستخدم مسجل الدخول، قم بتوجيهه إلى صفحة تسجيل الدخول
-    header("location: register.php");
+    header("location: login.php");
     exit;
 }
 ?>
@@ -14,69 +14,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Ticket</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        
-        .ticket-form {
-            max-width: 400px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(186, 35, 35, 0.1);
-        }
-        
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-family: chloe;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
-        
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Book Form</title>
+    <link rel="stylesheet" href="T.css">
 </head>
 <body>
     <div class="ticket-form">
         <h2>Book Ticket</h2>
         <h2>Let’s create your entrance Ticket!</h2>
-        <form action="#" method="post">
+        <form action="book_ticket.php" method="post">
             <div class="form-group">
                 <label for="firstname">First Name:</label>
                 <input type="text" id="firstname" name="firstname" required>
@@ -122,3 +67,42 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <label for="to">To Activity:</label>
                 <select id="to" name="to" required>
                     <option value="maraya">Maraya Alula</option>
+                    <option value="wonder">Wonder Garden Riyadh</option>
+                    <option value="Ithra">Ithra Alkhober</option>
+                    <option value="bayada">Bayada Island Jeddah</option>
+                    <option value="buraydah">Dates City Buraydah</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Date of Visit:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="class">Class:</label>
+                <select id="class" name="class" required>
+                    <option value="economy">Economy</option>
+                    <option value="business">Business</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const guestsRadio = document.querySelector('input[name="guests"]');
+            const guestsNumber = document.getElementById("guestsNumber");
+
+            guestsRadio.addEventListener("change", function() {
+                if (this.value === "yes") {
+                    guestsNumber.style.display = "block";
+                } else {
+                    guestsNumber.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
