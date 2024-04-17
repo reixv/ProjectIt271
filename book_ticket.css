@@ -7,7 +7,7 @@ body, html {
 }
 
 .header {
-    background: url('background_ticket.jpeg') no-repeat center top;
+    /* background: url('background_ticket.jpeg') no-repeat center top;*/
     background-size: cover;
     text-align: center;
     padding: 60px 0;
@@ -35,6 +35,7 @@ body, html {
 h2 {
     text-align: center;
     text-transform: uppercase;
+    background-image: url('background_ticket.jpeg');
 }
 
 .form-group {
