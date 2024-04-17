@@ -1,0 +1,56 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+.header-background {
+    background-image: url('background_ticket.jpeg');
+    height: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px #000000;
+}
+.container {
+    padding: 20px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+}
+p {
+    color: #666;
+    line-height: 1.5;
+}
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #218838;
+}
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

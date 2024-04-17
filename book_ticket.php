@@ -13,7 +13,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Ticket</title>
-    <link rel="stylesheet" href="T.css">
+    <link rel="stylesheet" href="book_ticket.css">
 </head>
 <body>
     <div class="ticket-form">
