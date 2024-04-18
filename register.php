@@ -65,7 +65,7 @@ if(isset($_POST["register"])) {
       <div class="grid-container">
         <div class="left-side">
           <div class="img-and-text">
-            <img class="cart-illustration" src="img/cart-illustration.png" alt="Cart Illustration">
+            <img class="cart-illustration" src="WelcomeSaudi.jpg" alt="Cart Illustration">
           </div>
         </div>
         <div class="right-side">
