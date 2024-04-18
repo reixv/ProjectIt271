@@ -10,22 +10,22 @@ body, html {
     height: 100%;
   }
   
-  .left-side, .right-side {
+  .left-side {
+    flex: 1.5;  /* Gives more space to the left side */
+    background: url('WelcomeSaudi.jpg') no-repeat center center;
+    background-size: cover;  /* Makes sure the image covers the whole area */
+  }
+  
+  .right-side {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .left-side {
-    background-image: url('WelcomeSaudi.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-  
   .wrapper {
-    width: 90%; /* Adjusts the width of the form area */
-    max-width: 400px; /* Ensures form does not get too wide on larger screens */
+    width: 90%;
+    max-width: 400px;
   }
   
   .input-container, .email-input-container, .password-input-container {
@@ -42,13 +42,13 @@ body, html {
   
   input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
-    padding: 10px 10px 10px 40px; /* Padding to make space for icons */
+    padding: 10px 10px 10px 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
   #register-button {
-    background-color: #4CAF50; /* Green background */
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px;
@@ -58,7 +58,7 @@ body, html {
   }
   
   #register-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
   }
   
   h2, p {
@@ -70,7 +70,6 @@ body, html {
     padding: 0 10px;
   }
   
-  /* Responsive adjustments */
   @media (max-width: 768px) {
     .page-container {
       flex-direction: column;
