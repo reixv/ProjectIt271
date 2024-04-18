@@ -63,10 +63,8 @@ if(isset($_POST["register"])) {
     <div class="page-container">
       <div class="grid-container">
         <div class="left-side">
-          <div class="img-and-text">
           <img src="WelcomeSaudi.jpg" alt="Welcome to Saudi" class="full-height-image">
           </div>
-        </div>
         <div class="right-side">
           <div class="wrapper">
             <h2>Get started.</h2>
