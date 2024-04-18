@@ -24,7 +24,6 @@
     <div class="page-container">
       <!-- جزء الصورة -->
       <div class="left-side">
-        <img src="WelcomeSaudi.jpg" alt="Welcome to Saudi" class="full-height-image">
       </div>
 
       <!-- جزء الفورم -->
