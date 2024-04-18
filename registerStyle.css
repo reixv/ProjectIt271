@@ -28,6 +28,10 @@ body, html {
     width: 90%; /* العرض نسبة من الجانب الأيمن */
     max-width: 400px; /* الحد الأقصى للعرض */
     padding: 20px; /* الحشو حول المحتويات */
+    position: absolute; /* موقع مطلق داخل الجانب الأيمن */
+    right: 0; /* التموضع من الجانب الأيمن */
+    top: 50%; /* تموضع وسطي عموديا */
+    transform: translateY(-50%); /* تصحيح الوضع العمودي */
 }
 
 .input-container, .email-input-container, .password-input-container {
