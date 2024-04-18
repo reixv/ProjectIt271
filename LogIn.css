@@ -1,42 +1,46 @@
-body {
+
+body, html {
+    width: 100%; /* يضمن تغطية العرض الكامل */
+    height: 100%; /* يضمن تغطية الارتفاع الكامل */
+    margin: 0; /* إزالة الهوامش الافتراضية */
+    padding: 0; /* إزالة التبطين الافتراضي */
     font-family: chloe;
-    margin: 0;
-    padding: 0;
 }
 
 .page-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%; /* تأكيد على أن العرض يمتد على الشاشة بأكملها */
     height: 100vh; /* يضمن أن الحاوية الرئيسية تأخذ ارتفاع الشاشة بالكامل */
+    overflow: hidden; /* منع أي تمدد خارج هذا العنصر */
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    width: 100%; /* تأكيد أن العرض يمتد على الشاشة بأكملها */
-    height: 100%; /* جديد: تأكيد أن الارتفاع يمتد على الشاشة بأكملها */
+    width: 100%; /* تأكيد على أن العرض يمتد على الشاشة بأكملها */
+    height: 100%; /* تأكيد على أن الارتفاع يمتد لكامل الارتفاع */
     max-width: 800px; /* يمكنك تعديل هذا العرض حسب الحاجة */
+    margin: 0 auto; /* لضمان عدم وجود هوامش إضافية */
 }
 
 .left-side {
+    flex: 1 1 50%; /* يأخذ دائماً نصف العرض */
+    background-image: url('welcomeSaudi.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%; /* تأكيد على أن العرض يمتد لنصف الشاشة */
-    height: 100%; /* جديد: تأكيد أن الارتفاع يمتد لكامل الارتفاع */
-    background-image: url('welcomeSaudi.jpg');
-    background-size: cover; /* يضمن تغطية الصورة بالكامل */
-    background-position: center; /* توسيط الصورة */
 }
 
 .right-side {
+    flex: 1 1 50%; /* يأخذ دائماً نصف العرض */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* تأكيد على أن العرض يمتد لنصف الشاشة */
-    height: 100%; /* تأكيد أن الارتفاع يمتد لكامل الارتفاع */
 }
 
 .wrapper {
