@@ -1,0 +1,22 @@
+.ticket-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.ticket-container h1 {
+    color: #333;
+    text-align: center;
+}
+
+.ticket-container p {
+    font-size: 16px;
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Add more styles here as needed */

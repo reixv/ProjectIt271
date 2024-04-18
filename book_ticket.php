@@ -1,17 +1,18 @@
 <?php
-// Start session and check if the user is logged in
+// Start session
 session_start();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: login.php");
     exit;
 }
 
+// Database connection parameters
 $servername = "localhost"; 
 $username = "root";
 $password = ""; 
 $dbname = "login"; 
 
-// Establish a new connection to the database
+// Create a new connection to the database
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -38,18 +39,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
         if ($stmt->execute()) {
-            echo "<h1>Booking Confirmation</h1>";
-            echo "<p>First Name: " . htmlspecialchars($firstname) . "</p>";
-            echo "<p>Last Name: " . htmlspecialchars($lastname) . "</p>";
-            echo "<p>Email: " . htmlspecialchars($email) . "</p>";
-            echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
-            echo "<p>Age: " . htmlspecialchars($age) . "</p>";
-            echo "<p>Bringing Guests: " . htmlspecialchars($guests) . "</p>";
-            if ($guests == 'yes') {
-                echo "<p>Number of Guests: " . htmlspecialchars($guestNumber) . "</p>";
-            }
-            echo "<p>Activity: " . htmlspecialchars($to) . "</p>";
-            echo "<p>Date of Visit: " . htmlspecialchars($date) . "</p>";
+            $_SESSION['ticket_data'] = [
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+                'phone' => $phone,
+                'age' => $age,
+                'guests' => $guests,
+                'guestNumber' => $guests == 'yes' ? $guestNumber : 'N/A',
+                'to' => $to,
+                'date' => $date
+            ];
+            header("Location: ticket_details.php");
+            exit;
         } else {
             echo "Error: " . $stmt->error;
         }
@@ -99,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <fieldset>
                     <legend>Are you bringing any guests?</legend>
                     <label><input type="radio" name="guests" value="yes"> Yes</label>
-                    <label><input type="radio" name="guests" value="no" checked> No</label>
+                    <label><input type of="radio" name="guests" value="no" checked> No</label>
                 </fieldset>
             </div>
             <div class="form-group" id="guestsNumber" style="display: none;">
@@ -113,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
             <div class="form-group">
-                <label for="to">choose  Activity:</label>
+                <label for="to">Choose Activity:</label>
                 <select id="to" name="to" required>
                     <option value="maraya">Maraya Alula</option>
                     <option value="wonder">Wonder Garden Riyadh</option>
@@ -124,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label for="date">Date of Visit:</label>
-                <input type="date" id="date" name="date" required>
+                <input type of="date" id="date" name="date" required>
             </div>
             <div class="form-group">
                 <input type="submit" value="Book a Ticket">
@@ -156,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 const phoneValue = phoneInput.value;
                 if (!phoneValue.startsWith("+966") || phoneValue.length !== 13) {
                     alert("Please enter a valid Saudi phone number starting with +966.");
-                    event.preventDefault();
+                    event.preventDefault(); // Prevent form submission
                 }
             });
         });
