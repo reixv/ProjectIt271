@@ -90,8 +90,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-require 'config.php';
-$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+$servername = "localhost"; 
+$username = "root";
+$password = ""; 
+$dbname = "login"; 
+
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -145,7 +149,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const guestsNoRadio = document.querySelector('input[name="guests"][value="no"]');
             const guestsNumberDiv = document.getElementById("guestsNumber");
 
-            // إظهار أو إخفاء حقل عدد الضيوف بناءً على اختيار الضيوف
             function toggleGuestNumberDisplay() {
                 if (guestsYesRadio.checked) {
                     guestsNumberDiv.style.display = "block";
