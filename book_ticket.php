@@ -38,9 +38,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
+    <label for="phone">Phone Number (e.g., +966123456789):</label>
+    <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
+</div>
+
             <div class="form-group">
                 <label for="age">Age:</label>
                 <input type="number" id="age" name="age" required>
@@ -84,11 +85,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </form>
     </div>
 
-    <?php
 
 
 
 
+
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -120,10 +122,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $to = $conn->real_escape_string($_POST["to"]);
     $date = $conn->real_escape_string($_POST["date"]);
 
-    $today = date("Y-m-d");
-    if ($date < $today) {
-        echo "<script>alert('Please select a future date for your visit.');</script>";
+    // التحقق من صيغة الهاتف
+    if (!preg_match("/^\+966\d{9}$/", $phone)) {
+        echo "<script>alert('Please enter a valid Saudi phone number starting with +966.');</script>";
     } else {
+        // إدراج البيانات إلى قاعدة البيانات في حال كان الرقم صحيحًا
         $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
 
@@ -151,6 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const guestsYesRadio = document.querySelector('input[name="guests"][value="yes"]');
@@ -167,6 +171,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             guestsYesRadio.addEventListener("change", toggleGuestNumberDisplay);
             guestsNoRadio.addEventListener("change", toggleGuestNumberDisplay);
+
+            document.addEventListener("DOMContentLoaded", function() {
+    const phoneInput = document.getElementById("phone");
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function(event) {
+        const phoneValue = phoneInput.value;
+        if (!phoneValue.startsWith("+966") || phoneValue.length !== 13) {
+            alert("Please enter a valid Saudi phone number starting with +966.");
+            event.preventDefault(); // منع إرسال النموذج
+        }
+    });
+});
+
+
+
         });
     </script>
 </body>
