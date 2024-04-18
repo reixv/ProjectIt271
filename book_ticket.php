@@ -1,5 +1,5 @@
 <?php
-// Start session
+// Start session and check if the user is logged in
 session_start();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: login.php");
@@ -11,13 +11,13 @@ $username = "root";
 $password = ""; 
 $dbname = "login"; 
 
-// Create connection to the database
+// Establish a new connection to the database
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle POST request
+// Handle the POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $conn->real_escape_string($_POST["firstname"]);
     $lastname = $conn->real_escape_string($_POST["lastname"]);
@@ -38,19 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
         if ($stmt->execute()) {
-            $_SESSION['ticket_data'] = [
-                'firstname' => $firstname,
-                'lastname' => $lastname,
-                'email' => $email,
-                'phone' => $phone,
-                'age' => $age,
-                'guests' => $guests,
-                'guestNumber' => $guests == 'yes' ? $guestNumber : 'N/A',
-                'to' => $to,
-                'date' => $date
-            ];
-            header("Location: ticket_details.php");
-            exit;
+            echo "<h1>Booking Confirmation</h1>";
+            echo "<p>First Name: " . htmlspecialchars($firstname) . "</p>";
+            echo "<p>Last Name: " . htmlspecialchars($lastname) . "</p>";
+            echo "<p>Email: " . htmlspecialchars($email) . "</p>";
+            echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
+            echo "<p>Age: " . htmlspecialchars($age) . "</p>";
+            echo "<p>Bringing Guests: " . htmlspecialchars($guests) . "</p>";
+            if ($guests == 'yes') {
+                echo "<p>Number of Guests: " . htmlspecialchars($guestNumber) . "</p>";
+            }
+            echo "<p>Activity: " . htmlspecialchars($to) . "</p>";
+            echo "<p>Date of Visit: " . htmlspecialchars($date) . "</p>";
         } else {
             echo "Error: " . $stmt->error;
         }
@@ -70,8 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="ticket-form">
-        <h2>Book Ticket</h2>
-        <p>Let’s create your entrance Ticket!</p>
+        <h2>Book Ticket
+            <br>
+        Let’s create your entrance Ticket!</h2>
         <form action="book_ticket.php" method="post">
             <div class="form-group">
                 <label for="firstname">First Name:</label>
@@ -86,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="phone">Phone Number:</label>
+                <label for="phone"> Phone Number:</label>
                 <div class="input-with-flag">
-                    <img src="saudi-flag.pngg" alt="Saudi Flag" class="flag-icon">
-                <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
+                    <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
+                </div>
             </div>
             <div class="form-group">
                 <label for="age">Age:</label>
@@ -98,8 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <fieldset>
                     <legend>Are you bringing any guests?</legend>
-                    <label><input type="radio" name="guests" value="yes" onclick="document.getElementById('guestsNumber').style.display='block';"> Yes</label>
-                    <label><input type="radio" name="guests" value="no" onclick="document.getElementById('guestsNumber').style.display='none';" checked> No</label>
+                    <label><input type="radio" name="guests" value="yes"> Yes</label>
+                    <label><input type="radio" name="guests" value="no" checked> No</label>
                 </fieldset>
             </div>
             <div class="form-group" id="guestsNumber" style="display: none;">
@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
             <div class="form-group">
-                <label for="to">Choose Activity:</label>
+                <label for="to">choose  Activity:</label>
                 <select id="to" name="to" required>
                     <option value="maraya">Maraya Alula</option>
                     <option value="wonder">Wonder Garden Riyadh</option>
@@ -131,8 +131,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const guestsYesRadio = document.querySelector('input[name="guests"][value="yes"]');
+            const guestsNoRadio = document.querySelector('input[name="guests"][value="no"]');
+            const guestsNumberDiv = document.getElementById("guestsNumber");
+
+            function toggleGuestNumberDisplay() {
+                if (guestsYesRadio.checked) {
+                    guestsNumberDiv.style.display = "block";
+                } else {
+                    guestsNumberDiv.style.display = "none";
+                }
+            }
+
+            guestsYesRadio.addEventListener("change", toggleGuestNumberDisplay);
+            guestsNoRadio.addEventListener("change", toggleGuestNumberDisplay);
+
             const phoneInput = document.getElementById("phone");
             const form = document.querySelector("form");
 
@@ -140,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 const phoneValue = phoneInput.value;
                 if (!phoneValue.startsWith("+966") || phoneValue.length !== 13) {
                     alert("Please enter a valid Saudi phone number starting with +966.");
-                    event.preventDefault(); // Prevent form submission
+                    event.preventDefault();
                 }
             });
         });
