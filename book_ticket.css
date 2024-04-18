@@ -78,6 +78,39 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
 }
+.input-with-flag {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-flag input[type="tel"] {
+    padding-left: 70px; /* Adjusted for better spacing */
+    height: 40px; /* Height of the input field */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-with-flag::before {
+    content: "+966";
+    position: absolute;
+    left: 10px;
+    color: #555;
+    font-size: 16px; /* Adjusted font size for better visibility */
+}
+
+.input-with-flag::after {
+    content: "";
+    position: absolute;
+    left: 50px; /* Position right after the country code */
+    width: 20px;
+    height: 20px;
+    background-image: url('saudi-flag.png'); /* Path to your Saudi flag image */
+    background-size: cover;
+    background-position: center;
+}
+
 
 .form-group input[type="submit"]:hover {
     background-color: #4cae4c;
