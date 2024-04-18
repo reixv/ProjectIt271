@@ -38,7 +38,7 @@ if (isset($_POST["login"])) {
             $_SESSION["loggedin"] = true;
             $_SESSION["user_id"] = $row["id"];
             $_SESSION["user_email"] = $row["email"];
-            header("location: VisitSaudi.php");
+            header("location: VistSaudi.php");
             exit;
         } else {
             $error_message = "Incorrect email or password!";
