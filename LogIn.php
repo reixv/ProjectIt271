@@ -28,12 +28,10 @@
                 <input type="password" name="password" placeholder="Your password" id="password" required>
               </div>
               <button id="login-button" type="submit" name="login">Log in</button>
-    </form>
-    <?php if (!empty($error_message)): ?>
-        <p class="error"><?php echo $error_message; ?></p>
-    <?php endif; ?>
-              <button id="login-button" type="submit" name="login">Log in</button>
             </form>
+            <?php if (!empty($error_message)): ?>
+                <p class="error"><?php echo $error_message; ?></p>
+            <?php endif; ?>
             <a href="register.php">Need an account? Register here.</a>
           </div>
         </div>
@@ -41,46 +39,46 @@
     </div>
   </main>
   <?php
-session_start();
+  session_start();
 
-if (isset($_POST["login"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+  if (isset($_POST["login"])) {
+      $email = $_POST["email"];
+      $password = $_POST["password"];
 
-    // بيانات الاتصال بقاعدة البيانات
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "login";
+      // بيانات الاتصال بقاعدة البيانات
+      $servername = "localhost";
+      $username = "root";
+      $db_password = "";
+      $dbname = "login";
 
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+      $conn = new mysqli($servername, $username, $db_password, $dbname);
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+      }
 
-    $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+      $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE email = ?");
+      $stmt->bind_param("s", $email);
+      $stmt->execute();
+      $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row["password"])) {
-            $_SESSION["loggedin"] = true;
-            $_SESSION["user_id"] = $row["id"];
-            $_SESSION["user_email"] = $row["email"];
-            header("location: visitSaudi.php");
-            exit;
-        } else {
-            $error_message = "Incorrect email or password!";
-        }
-    } else {
-        $error_message = "Incorrect email or password!";
-    }
-    $stmt->close();
-    $conn->close();
-}
-?>
+      if ($result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          if (password_verify($password, $row["password"])) {
+              $_SESSION["loggedin"] = true;
+              $_SESSION["user_id"] = $row["id"];
+              $_SESSION["user_email"] = $row["email"];
+              header("location: VisitSaudi.php");
+              exit;
+          } else {
+              $error_message = "Incorrect email or password!";
+          }
+      } else {
+          $error_message = "Incorrect email or password!";
+      }
+      $stmt->close();
+      $conn->close();
+  }
+  ?>
 
 </body>
 </html>
