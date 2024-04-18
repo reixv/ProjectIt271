@@ -6,19 +6,18 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-// Database connection parameters
 $servername = "localhost"; 
 $username = "root";
 $password = ""; 
 $dbname = "login"; 
 
-// Create a new connection to the database
+// Create connection to the database
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle the POST request
+// Handle POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $conn->real_escape_string($_POST["firstname"]);
     $lastname = $conn->real_escape_string($_POST["lastname"]);
@@ -71,9 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="ticket-form">
-        <h2>Book Ticket
-            <br>
-        Let’s create your entrance Ticket!</h2>
+        <h2>Book Ticket</h2>
+        <p>Let’s create your entrance Ticket!</p>
         <form action="book_ticket.php" method="post">
             <div class="form-group">
                 <label for="firstname">First Name:</label>
@@ -88,10 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="phone"> Phone Number:</label>
-                <div class="input-with-flag">
-                    <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
-                </div>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
             </div>
             <div class="form-group">
                 <label for="age">Age:</label>
@@ -100,8 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <fieldset>
                     <legend>Are you bringing any guests?</legend>
-                    <label><input type="radio" name="guests" value="yes"> Yes</label>
-                    <label><input type of="radio" name="guests" value="no" checked> No</label>
+                    <label><input type="radio" name="guests" value="yes" onclick="document.getElementById('guestsNumber').style.display='block';"> Yes</label>
+                    <label><input type="radio" name="guests" value="no" onclick="document.getElementById('guestsNumber').style.display='none';" checked> No</label>
                 </fieldset>
             </div>
             <div class="form-group" id="guestsNumber" style="display: none;">
@@ -126,31 +122,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label for="date">Date of Visit:</label>
-                <input type of="date" id="date" name="date" required>
+                <input type="date" id="date" name="date" required>
             </div>
             <div class="form-group">
                 <input type="submit" value="Book a Ticket">
             </div>
         </form>
     </div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const guestsYesRadio = document.querySelector('input[name="guests"][value="yes"]');
-            const guestsNoRadio = document.querySelector('input[name="guests"][value="no"]');
-            const guestsNumberDiv = document.getElementById("guestsNumber");
-
-            function toggleGuestNumberDisplay() {
-                if (guestsYesRadio.checked) {
-                    guestsNumberDiv.style.display = "block";
-                } else {
-                    guestsNumberDiv.style.display = "none";
-                }
-            }
-
-            guestsYesRadio.addEventListener("change", toggleGuestNumberDisplay);
-            guestsNoRadio.addEventListener("change", toggleGuestNumberDisplay);
-
             const phoneInput = document.getElementById("phone");
             const form = document.querySelector("form");
 
