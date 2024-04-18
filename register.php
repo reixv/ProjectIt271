@@ -60,50 +60,57 @@ if(isset($_POST["register"])) {
 </head>
 <body>
   <main>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="registerStyle.css">
+</head>
+<body>
+  <main>
     <div class="page-container">
-      <div class="grid-container">
-        <div class="left-side">
-          <img src="WelcomeSaudi.jpg" alt="Welcome to Saudi" class="full-height-image">
-          </div>
-        <div class="right-side">
-          <div class="wrapper">
-            <h2>Get started.</h2>
-            <p>Already have an account? <a href="LogIn.php">Log in</a></p>
-            <div class="sign-up-buttons"></div>
-            <p class="socials-divider"><span>or</span></p>
+      <!-- جزء الصورة -->
+      <div class="left-side">
+        <img src="WelcomeSaudi.jpg" alt="Welcome to Saudi" class="full-height-image">
+      </div>
 
-            <form action="register.php" method="post">
-                <label for="first_name">First Name</label>
-                <div class="input-container">
-                    <input type="text" name="first_name" placeholder="Your first name" id="first_name" required>
-                </div>
-                
-                <label for="last_name">Last Name</label>
-                <div class="input-container">
-                    <input type="text" name="last_name" placeholder="Your last name" id="last_name" required>
-                </div>
+      <!-- جزء الفورم -->
+      <div class="right-side">
+        <div class="wrapper">
+          <h2>Get started.</h2>
+          <p>Already have an account? <a href="LogIn.php">Log in</a></p>
+          <p class="socials-divider"><span>or</span></p>
+          <form action="register.php" method="post">
+            <div class="input-container">
+              <label for="first_name">First Name</label>
+              <input type="text" name="first_name" placeholder="Your first name" id="first_name" required>
+            </div>
+            
+            <div class="input-container">
+              <label for="last_name">Last Name</label>
+              <input type="text" name="last_name" placeholder="Your last name" id="last_name" required>
+            </div>
 
-                <label for="email">Email address</label>
-                <div class="email-input-container">
-                    <i class="fi fi-rr-envelope icon-email"></i>
-                    <input type="email" name="email_address" placeholder="example@gmail.com" id="email" required>
-                </div>
-                
-                <label for="password">Password</label>
-                <div class="password-input-container">
-                    <i class="fi fi-rr-lock icon-password"></i>
-                    <input type="password" name="password" placeholder="Your password" id="password" required>
-                </div>
-                
-                <button id="register-button" type="submit" name="register">Create Account</button>
-            </form>
-            <a href="VistSaudi.php">Back </a>
-
-
-          </div>
+            <div class="email-input-container">
+              <label for="email">Email address</label>
+              <input type="email" name="email_address" placeholder="example@gmail.com" id="email" required>
+            </div>
+            
+            <div class="password-input-container">
+              <label for="password">Password</label>
+              <input type="password" name="password" placeholder="Your password" id="password" required>
+            </div>
+            
+            <button id="register-button" type="submit" name="register">Create Account</button>
+          </form>
+          <a href="VistSaudi.php">Back</a>
         </div>
       </div>
     </div>
   </main>
 </body>
 </html>
+s
