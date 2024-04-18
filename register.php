@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
   <link rel="stylesheet" href="registerStyle.css">
+  
 </head>
 <body>
   <main>
@@ -55,11 +56,25 @@
             
             <button id="register-button" type="submit" name="register">Create Account</button>
           </form>
+          <div id="message-container"></div> <!-- هذا العنصر لعرض الرسائل -->
           <a href="VistSaudi.php">Back</a>
         </div>
       </div>
     </div>
   </main>
+  <script>
+if ($result->num_rows > 0) {
+    echo "<script>document.getElementById('message-container').textContent = 'This email address is already registered.';</script>";
+} else {
+    if ($stmt->execute()) {
+        echo "<script>document.getElementById('message-container').textContent = 'Account has been successfully registered';</script>";
+    } else {
+        echo "<script>document.getElementById('message-container').textContent = 'An error occurred while registering the account: " . addslashes($stmt->error) . "';</script>";
+    }
+}
+
+</script>
+
   <?php
 session_start();
 

@@ -1,7 +1,7 @@
 body, html {
     height: 100%;
     margin: 0;
-    font-family: 'chloe', sans-serif;
+    font-family: chloe;
 }
 
 .page-container {
@@ -72,4 +72,10 @@ h2, p {
         width: 100%;
         flex: none;
     }
+}
+#message-container {
+    text-align: right; /* محاذاة النص لليمين */
+    width: 90%; /* العرض نسبي للوالد، يمكنك تعديله حسب الحاجة */
+    margin-top: 20px; /* مسافة فوق العنصر */
+    color: red; /* لون النص، يمكنك تعديله حسب التفضيل */
 }
