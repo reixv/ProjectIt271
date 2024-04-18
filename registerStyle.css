@@ -2,30 +2,32 @@
 body, html {
     height: 100%;
     margin: 0;
-    font-family: chloe, sans-serif;
+    font-family: chloe;
   }
   
   .page-container {
     display: flex;
     height: 100%;
+    flex-direction: row;  /* Ensures the layout is horizontal */
   }
   
   .left-side {
-    flex: 1.5;  /* Gives more space to the left side */
+    flex: 1.5;  /* Adjust this ratio to give more space to the left side */
     background: url('WelcomeSaudi.jpg') no-repeat center center;
-    background-size: cover;  /* Makes sure the image covers the whole area */
+    background-size: cover;  /* Ensures the image covers the whole area */
   }
   
   .right-side {
-    flex: 1;
+    flex: 1;  /* Adjust this ratio to balance space with the left side */
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
   .wrapper {
-    width: 90%;
-    max-width: 400px;
+    width: 100%;  /* Adjusts to fit within the right-side container */
+    max-width: 400px;  /* Ensures form does not get too wide */
+    padding: 20px;  /* Adds some padding around the form */
   }
   
   .input-container, .email-input-container, .password-input-container {
@@ -70,7 +72,8 @@ body, html {
     padding: 0 10px;
   }
   
-  @media (max-width: 768px) {
+  /* Ensures that the layout does not collapse into a column on smaller screens too early */
+  @media (max-width: 1024px) {
     .page-container {
       flex-direction: column;
     }
