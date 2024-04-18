@@ -134,3 +134,41 @@ h2 {
     bottom: 0;
     width: 100%;
 }
+
+.input-with-flag {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* تأكد من وجود مساحة كافية حول العنصر */
+}
+
+.input-with-flag input[type="tel"] {
+    padding-left: 90px; /* زيادة المساحة لتجنب التداخل */
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-with-flag::before {
+    content: "+966";
+    position: absolute;
+    left: 10px; /* تعديل حسب الحاجة لتوفير مساحة كافية */
+    top: 50%; /* ضبط الموضع العمودي */
+    transform: translateY(-50%); /* توسيط النص عموديا */
+    color: #555;
+    font-size: 16px;
+}
+
+.input-with-flag::after {
+    content: "";
+    position: absolute;
+    left: 60px; /* تعديل لإعطاء مساحة بين الرمز والعلم */
+    top: 50%;
+    transform: translateY(-50%); /* توسيط العلم عموديا */
+    width: 24px; /* تعديل الحجم حسب الحاجة */
+    height: 24px;
+    background-image: url('saudi-flag.png'); /* تأكد من صحة المسار */
+    background-size: cover;
+    background-position: center;
+}
