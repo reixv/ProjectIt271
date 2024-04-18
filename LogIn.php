@@ -12,7 +12,6 @@
     <div class="page-container">
       <div class="grid-container">
         <div class="left-side">
-          <!-- حذفت الصورة من هنا -->
         </div>
         <div class="right-side">
           <div class="wrapper">
@@ -28,6 +27,11 @@
                 <i class="fi fi-rr-lock icon-password"></i>
                 <input type="password" name="password" placeholder="Your password" id="password" required>
               </div>
+              <button id="login-button" type="submit" name="login">Log in</button>
+    </form>
+    <?php if (!empty($error_message)): ?>
+        <p class="error"><?php echo $error_message; ?></p>
+    <?php endif; ?>
               <button id="login-button" type="submit" name="login">Log in</button>
             </form>
             <a href="register.php">Need an account? Register here.</a>
@@ -68,10 +72,10 @@ if (isset($_POST["login"])) {
             header("location: visitSaudi.php");
             exit;
         } else {
-            echo "Invalid password!";
+            $error_message = "Incorrect email or password!";
         }
     } else {
-        echo "No user found with this email address!";
+        $error_message = "Incorrect email or password!";
     }
     $stmt->close();
     $conn->close();
