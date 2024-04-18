@@ -15,15 +15,19 @@ body {
     display: flex;
    width: 100%;
 }
+
 .left-side {
-    flex: 1; /* تعطي الجانب الأيسر فليكسيبيليتي لشغل نصف الصفحة */
-    /* لا حاجة لتحديد width للصورة هنا لأنه محدد في HTML بـ 100% */
-    width: 50%; /* يمكن تحديد العرض بـ 50% لضمان ذلك */
-    position: relative;
+    width: 50%; /* نصف الشاشة للصورة */
+    overflow: hidden; /* يمنع أي تجاوز للمحتوى خارج هذا العنصر */
 }
 
 
+.left-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* يضمن تغطية العنصر كاملاً دون تشوه */
 
+}
 
 .img-and-text {
     position: relative; /* تأكيد أن النصوص داخل الصورة */
