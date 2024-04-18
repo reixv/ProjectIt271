@@ -16,7 +16,7 @@
         <div class="right-side">
           <div class="wrapper">
             <h2>Welcome Back!</h2>
-            <form action="LogIn.php" method="post">
+            <form action="Login.php" method="post">
               <label for="email">Email address</label>
               <div class="email-input-container">
                 <i class="fi fi-rr-envelope icon-email"></i>
