@@ -1,66 +1,84 @@
-body {
-    font-family: 'Chloe', sans-serif;
+/* CSS styles for registration page */
+body, html {
+    height: 100%;
     margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* منع التمرير الأفقي الزائد */
-}
-
-.page-container {
+    font-family: chloe, sans-serif;
+  }
+  
+  .page-container {
     display: flex;
-    flex-direction: row-reverse; /* جعل الفورم يظهر على اليمين */
-    min-height: 100vh; /* استخدام الارتفاع الأدنى لتغطية كامل الشاشة */
-}
-
-.left-side {
-    width: 50%; /* الجانب الأيسر للصورة */
+    height: 100%;
+  }
+  
+  .left-side, .right-side {
+    flex: 1;
     display: flex;
-    justify-content: flex-end; /* محاذاة الصورة للحافة اليسرى */
-}
-
-.left-side img {
-    width: 100%; /* العرض الكامل للجانب الأيسر */
-    height: auto;
-    object-fit: cover; /* تغطية المساحة المتاحة دون فقدان نسب الصورة */
-}
-
-.right-side {
-    width: 50%; /* الجانب الأيمن للفورم */
-    display: flex;
-    justify-content: flex-start; /* محاذاة الفورم للحافة اليمنى */
-    align-items: center; /* محاذاة الفورم في الوسط عموديًا */
-    padding: 2rem; /* مساحة داخلية لتنظيم الفورم */
-}
-
-.wrapper {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .left-side {
+    background-image: url('WelcomeSaudi.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .wrapper {
+    width: 90%; /* Adjusts the width of the form area */
+    max-width: 400px; /* Ensures form does not get too wide on larger screens */
+  }
+  
+  .input-container, .email-input-container, .password-input-container {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .icon-email, .icon-password {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
-    max-width: 360px; /* تحديد أقصى عرض للفورم */
-    /* باقي الأنماط للفورم كما هي */
-}
-.input-container,
-.email-input-container,
-.password-input-container {
-    margin-bottom: 15px; /* فواصل بين حقول الإدخال */
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
+    padding: 10px 10px 10px 40px; /* Padding to make space for icons */
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-#register-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4285F4; /* لون أزرق فاتح */
+  }
+  
+  #register-button {
+    background-color: #4CAF50; /* Green background */
     color: white;
     border: none;
+    padding: 10px;
+    width: 100%;
     border-radius: 5px;
     cursor: pointer;
-}
-
-#register-button:hover {
-    opacity: 0.9; /* تغيير الشفافية عند التحويم */
-}
+  }
+  
+  #register-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  h2, p {
+    text-align: center;
+  }
+  
+  .socials-divider span {
+    background-color: #fff;
+    padding: 0 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .page-container {
+      flex-direction: column;
+    }
+  
+    .left-side, .right-side {
+      width: 100%;
+      flex: none;
+    }
+  }
+  
