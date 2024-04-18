@@ -1,15 +1,63 @@
 <?php
-// التحقق مما إذا كانت الجلسة مفتوحة بالفعل قبل بدئها
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+// Start session and check if the user is logged in
+session_start();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: login.php");
     exit;
 }
-?>
 
+$servername = "localhost"; 
+$username = "root";
+$password = ""; 
+$dbname = "login"; 
+
+// Establish a new connection to the database
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle the POST request
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstname = $conn->real_escape_string($_POST["firstname"]);
+    $lastname = $conn->real_escape_string($_POST["lastname"]);
+    $email = $conn->real_escape_string($_POST["email"]);
+    $phone = $conn->real_escape_string($_POST["phone"]);
+    $age = $conn->real_escape_string($_POST["age"]);
+    $guests = $conn->real_escape_string($_POST["guests"]);
+    $guestNumber = isset($_POST["guestNumber"]) ? $conn->real_escape_string($_POST["guestNumber"]) : "N/A";
+    $to = $conn->real_escape_string($_POST["to"]);
+    $date = $conn->real_escape_string($_POST["date"]);
+    $today = date("Y-m-d");
+
+    if ($date < $today) {
+        echo "<script>alert('Please select a future date for your visit.');</script>";
+    } elseif (!preg_match("/^\+966\d{9}$/", $phone)) {
+        echo "<script>alert('Please enter a valid Saudi phone number starting with +966.');</script>";
+    } else {
+        $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
+        if ($stmt->execute()) {
+            echo "<h1>Booking Confirmation</h1>";
+            echo "<p>First Name: " . htmlspecialchars($firstname) . "</p>";
+            echo "<p>Last Name: " . htmlspecialchars($lastname) . "</p>";
+            echo "<p>Email: " . htmlspecialchars($email) . "</p>";
+            echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
+            echo "<p>Age: " . htmlspecialchars($age) . "</p>";
+            echo "<p>Bringing Guests: " . htmlspecialchars($guests) . "</p>";
+            if ($guests == 'yes') {
+                echo "<p>Number of Guests: " . htmlspecialchars($guestNumber) . "</p>";
+            }
+            echo "<p>Activity: " . htmlspecialchars($to) . "</p>";
+            echo "<p>Date of Visit: " . htmlspecialchars($date) . "</p>";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+    $conn->close();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,14 +85,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <label for="email">Email Address:</label>
                 <input type="email" id="email" name="email" required>
             </div>
-
             <div class="form-group">
-    <label for="phone"> Phone Number:</label>
-    <div class="input-with-flag">
-        <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
-    </div>
-</div>
-
+                <label for="phone"> Phone Number:</label>
+                <div class="input-with-flag">
+                    <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
+                </div>
+            </div>
             <div class="form-group">
                 <label for="age">Age:</label>
                 <input type="number" id="age" name="age" required>
@@ -66,7 +112,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     <option value="5">5</option>
                 </select>
             </div>
-            
             <div class="form-group">
                 <label for="to">choose  Activity:</label>
                 <select id="to" name="to" required>
@@ -81,84 +126,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <label for="date">Date of Visit:</label>
                 <input type="date" id="date" name="date" required>
             </div>
-            
             <div class="form-group">
                 <input type="submit" value="Book a Ticket">
             </div>
         </form>
     </div>
-
-
-
-
-
-
-    <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("location: login.php");
-    exit;
-}
-
-$servername = "localhost"; 
-$username = "root";
-$password = ""; 
-$dbname = "login"; 
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstname = $conn->real_escape_string($_POST["firstname"]);
-    $lastname = $conn->real_escape_string($_POST["lastname"]);
-    $email = $conn->real_escape_string($_POST["email"]);
-    $phone = $conn->real_escape_string($_POST["phone"]);
-    $age = $conn->real_escape_string($_POST["age"]);
-    $guests = $conn->real_escape_string($_POST["guests"]);
-    $guestNumber = isset($_POST["guestNumber"]) ? $conn->real_escape_string($_POST["guestNumber"]) : "N/A";
-    $to = $conn->real_escape_string($_POST["to"]);
-    $date = $conn->real_escape_string($_POST["date"]);
-
-    $today = date("Y-m-d");
-    if ($date < $today) {
-        echo "<script>alert('Please select a future date for your visit.');</script>";
-    } else {
-        if (!preg_match("/^\+966\d{9}$/", $phone)) {
-            echo "<script>alert('Please enter a valid Saudi phone number starting with +966.');</script>";
-        } else {
-            $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
-
-            if ($stmt->execute()) {
-                echo "<h1>Booking Confirmation</h1>";
-                echo "<p>First Name: " . htmlspecialchars($firstname) . "</p>";
-                echo "<p>Last Name: " . htmlspecialchars($lastname) . "</p>";
-                echo "<p>Email: " . htmlspecialchars($email) . "</p>";
-                echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
-                echo "<p>Age: " . htmlspecialchars($age) . "</p>";
-                echo "<p>Bringing Guests: " . htmlspecialchars($guests) . "</p>";
-                if ($guests == 'yes') {
-                    echo "<p>Number of Guests: " . htmlspecialchars($guestNumber) . "</p>";
-                }
-                echo "<p>Activity: " . htmlspecialchars($to) . "</p>";
-                echo "<p>Date of Visit: " . htmlspecialchars($date) . "</p>";
-            } else {
-                echo "Error: " . $stmt->error;
-            }
-            $stmt->close();
-        }
-    }
-    $conn->close();
-}
-?>
-
-
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -177,21 +149,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             guestsYesRadio.addEventListener("change", toggleGuestNumberDisplay);
             guestsNoRadio.addEventListener("change", toggleGuestNumberDisplay);
 
-            document.addEventListener("DOMContentLoaded", function() {
-    const phoneInput = document.getElementById("phone");
-    const form = document.querySelector("form");
+            const phoneInput = document.getElementById("phone");
+            const form = document.querySelector("form");
 
-    form.addEventListener("submit", function(event) {
-        const phoneValue = phoneInput.value;
-        if (!phoneValue.startsWith("+966") || phoneValue.length !== 13) {
-            alert("Please enter a valid Saudi phone number starting with +966.");
-            event.preventDefault(); // منع إرسال النموذج
-        }
-    });
-});
-
-
-
+            form.addEventListener("submit", function(event) {
+                const phoneValue = phoneInput.value;
+                if (!phoneValue.startsWith("+966") || phoneValue.length !== 13) {
+                    alert("Please enter a valid Saudi phone number starting with +966.");
+                    event.preventDefault();
+                }
+            });
         });
     </script>
 </body>
