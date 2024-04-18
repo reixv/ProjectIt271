@@ -62,18 +62,6 @@
       </div>
     </div>
   </main>
-  <script>
-if ($result->num_rows > 0) {
-    echo "<script>document.getElementById('message-container').textContent = 'This email address is already registered.';</script>";
-} else {
-    if ($stmt->execute()) {
-        echo "<script>document.getElementById('message-container').textContent = 'Account has been successfully registered';</script>";
-    } else {
-        echo "<script>document.getElementById('message-container').textContent = 'An error occurred while registering the account: " . addslashes($stmt->error) . "';</script>";
-    }
-}
-
-</script>
 
   <?php
 session_start();
@@ -106,14 +94,14 @@ if(isset($_POST["register"])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        echo "This email address is already registered.";
+        echo "<script>document.getElementById('message-container').textContent = 'This email address is already registered.';</script>";
     } else {
         $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
         if ($stmt->execute()) {
-            echo "Account has been successfully registered";
+            echo "<script>document.getElementById('message-container').textContent = 'Account has been successfully registered';</script>";
         } else {
-            echo "An error occurred while registering the account: " . $stmt->error;
+            echo "<script>document.getElementById('message-container').textContent = 'An error occurred while registering the account: " . addslashes($stmt->error) . "';</script>";
         }
     }
     $stmt->close();
