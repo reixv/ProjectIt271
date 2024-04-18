@@ -8,29 +8,35 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* يضمن أن الحاوية الرئيسية تأخذ ارتفاع الشاشة بالكامل */
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%; /* تأكيد أن العرض يمتد على الشاشة بأكملها */
+    height: 100%; /* جديد: تأكيد أن الارتفاع يمتد على الشاشة بأكملها */
+    max-width: 800px; /* يمكنك تعديل هذا العرض حسب الحاجة */
 }
 
 .left-side {
     display: flex;
     align-items: center;
-    background-image: url('welcomeSaudi.jpg'); /* إضافة صورة الخلفية */
-    background-size: cover; /* تغطية المساحة بالكامل */
-    background-position: center; /* مركز الصورة في الجزء الأيسر */
+    justify-content: center;
+    width: 100%; /* تأكيد على أن العرض يمتد لنصف الشاشة */
+    height: 100%; /* جديد: تأكيد أن الارتفاع يمتد لكامل الارتفاع */
+    background-image: url('welcomeSaudi.jpg');
+    background-size: cover; /* يضمن تغطية الصورة بالكامل */
+    background-position: center; /* توسيط الصورة */
 }
 
 .right-side {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%; /* تأكيد على أن العرض يمتد لنصف الشاشة */
+    height: 100%; /* تأكيد أن الارتفاع يمتد لكامل الارتفاع */
 }
 
 .wrapper {
