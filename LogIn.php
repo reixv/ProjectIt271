@@ -1,44 +1,3 @@
-<?php
-session_start();
-
-if (isset($_POST["login"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-    // بيانات الاتصال بقاعدة البيانات
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "login";
-
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row["password"])) {
-            $_SESSION["loggedin"] = true;
-            $_SESSION["user_id"] = $row["id"];
-            $_SESSION["user_email"] = $row["email"];
-            header("location: book_ticket.php");
-            exit;
-        } else {
-            echo "Invalid password!";
-        }
-    } else {
-        echo "No user found with this email address!";
-    }
-    $stmt->close();
-    $conn->close();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -80,5 +39,47 @@ if (isset($_POST["login"])) {
       </div>
     </div>
   </main>
+  <?php
+session_start();
+
+if (isset($_POST["login"])) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // بيانات الاتصال بقاعدة البيانات
+    $servername = "localhost";
+    $username = "root";
+    $db_password = "";
+    $dbname = "login";
+
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row["password"])) {
+            $_SESSION["loggedin"] = true;
+            $_SESSION["user_id"] = $row["id"];
+            $_SESSION["user_email"] = $row["email"];
+            header("location: book_ticket.php");
+            exit;
+        } else {
+            echo "Invalid password!";
+        }
+    } else {
+        echo "No user found with this email address!";
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 </body>
 </html>
