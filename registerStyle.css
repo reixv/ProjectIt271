@@ -1,86 +1,84 @@
 /* CSS styles for registration page */
 body, html {
-    height: 100%;
-    margin: 0;
-    font-family: chloe;
-  }
-  
-  .page-container {
-    display: flex;
-    height: 100%;
-    flex-direction: row;  /* Ensures the layout is horizontal */
-  }
-  
-  .left-side {
-    flex: 1.5;  /* Adjust this ratio to give more space to the left side */
-    background: url('WelcomeSaudi.jpg') no-repeat center center;
-    background-size: cover;  /* Ensures the image covers the whole area */
-  }
-  
-  .right-side {
-    flex: 1;  /* Adjust this ratio to balance space with the left side */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .wrapper {
-    width: 100%;  /* Adjusts to fit within the right-side container */
-    max-width: 400px;  /* Ensures form does not get too wide */
-    padding: 20px;  /* Adds some padding around the form */
-  }
-  
-  .input-container, .email-input-container, .password-input-container {
-    margin-bottom: 20px;
-    position: relative;
-  }
-  
-  .icon-email, .icon-password {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  input[type="text"], input[type="email"], input[type="password"] {
-    width: 100%;
-    padding: 10px 10px 10px 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  #register-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  #register-button:hover {
-    background-color: #45a049;
-  }
-  
-  h2, p {
-    text-align: center;
-  }
-  
-  .socials-divider span {
-    background-color: #fff;
-    padding: 0 10px;
-  }
-  
-  /* Ensures that the layout does not collapse into a column on smaller screens too early */
-  @media (max-width: 1024px) {
+    height: 100%; /* يضمن امتلاء الصفحة بالكامل */
+    margin: 0; /* يزيل الهوامش الافتراضية */
+    font-family: 'chloe', sans-serif; /* تحديد نوع الخط */
+}
+
+.page-container {
+    display: flex; /* يستخدم فليكسبوكس لترتيب العناصر داخل الصفحة */
+    flex-direction: row; /* ترتيب العناصر في صف أفقي */
+    height: 100%; /* الارتفاع يملأ الصفحة بالكامل */
+}
+
+.left-side {
+    flex: 1; /* يستخدم نفس المساحة مثل الجانب الأيمن */
+    background: url('WelcomeSaudi.jpg') no-repeat center center; /* تحديد صورة الخلفية ومكانها */
+    background-size: cover; /* تغطية المساحة بالكامل بدون تكرار */
+}
+
+.right-side {
+    flex: 1; /* يستخدم نفس المساحة مثل الجانب الأيسر */
+    display: flex; /* يستخدم فليكسبوكس لترتيب العناصر داخله */
+    align-items: center; /* محاذاة العناصر في المنتصف عموديا */
+    justify-content: center; /* محاذاة العناصر في المنتصف أفقيا */
+}
+
+.wrapper {
+    width: 90%; /* العرض نسبة من الجانب الأيمن */
+    max-width: 400px; /* الحد الأقصى للعرض */
+    padding: 20px; /* الحشو حول المحتويات */
+}
+
+.input-container, .email-input-container, .password-input-container {
+    margin-bottom: 20px; /* هامش أسفل كل حاوية إدخال */
+    position: relative; /* لتحديد موقع الأيقونات بشكل نسبي */
+}
+
+.icon-email, .icon-password {
+    position: absolute; /* تموضع مطلق داخل حاوية الإدخال */
+    left: 10px; /* المسافة من اليسار */
+    top: 50%; /* المسافة من الأعلى */
+    transform: translateY(-50%); /* تعديل الموضع العمودي للمركز */
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%; /* العرض الكامل للحاوية */
+    padding: 10px 10px 10px 40px; /* الحشو لترك مكان للأيقونة */
+    border: 1px solid #ccc; /* إطار خفيف */
+    border-radius: 5px; /* تقريب الزوايا */
+}
+
+#register-button {
+    background-color: #4CAF50; /* لون الخلفية للزر */
+    color: white; /* لون النص */
+    border: none; /* بدون إطار */
+    padding: 10px; /* حشو داخلي للزر */
+    width: 100%; /* عرض كامل */
+    border-radius: 5px; /* تقريب الزوايا */
+    cursor: pointer; /* تغيير شكل المؤشر */
+}
+
+#register-button:hover {
+    background-color: #45a049; /* تغيير لون الخلفية عند التحويم */
+}
+
+h2, p {
+    text-align: center; /* محاذاة النص في المنتصف */
+}
+
+.socials-divider span {
+    background-color: #fff; /* لون الخلفية للنص */
+    padding: 0 10px; /* حشو حول النص */
+}
+
+@media (max-width: 1024px) {
     .page-container {
-      flex-direction: column;
+        flex-direction: column; /* تغيير التوجيه إلى عمودي عند الحاجة */
     }
-  
+
     .left-side, .right-side {
-      width: 100%;
-      flex: none;
+        width: 100%; /* تعديل العرض للامتلاء التام */
+        flex: none; /* إلغاء الفلكسبوكس */
     }
-  }
-  
+}
