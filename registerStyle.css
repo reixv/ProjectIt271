@@ -1,8 +1,8 @@
 body {
-    font-family: 'Chloe', sans-serif; /* تحديث الخط */
+    font-family: 'Chloe', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* منع التمرير الأفقي إذا تجاوزت الصورة الحجم */
+    overflow-x: hidden; /* منع التمرير الأفقي الزائد */
 }
 
 .page-container {
@@ -12,31 +12,32 @@ body {
 }
 
 .left-side {
-    flex-basis: 50%; /* تحديد أساس الفليكس للجانب الأيسر */
-    position: relative;
-    overflow: hidden; /* منع الصورة من التجاوز */
+    width: 50%; /* نصف الشاشة للصورة */
+    display: flex;
+    align-items: center; /* محاذاة الصورة في المنتصف عموديًا */
+    justify-content: center; /* محاذاة الصورة في المنتصف أفقيًا */
+    overflow: hidden;
 }
 
 .left-side img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* تغطية الجانب بالكامل دون تشوه */
+    max-width: 100%; /* تحديد العرض الأقصى للصورة */
+    max-height: 100%; /* تحديد الارتفاع الأقصى للصورة */
+    object-fit: cover; /* تغطية المساحة المتاحة دون فقدان نسب الصورة */
 }
 
 .right-side {
-    flex-basis: 50%; /* تحديد أساس الفليكس للجانب الأيمن */
+    width: 50%; /* نفس المساحة للفورم */
     display: flex;
-    align-items: center; /* محاذاة الفورم في الوسط */
-    justify-content: center;
-    padding: 2rem; /* توفير بعض المساحة الداخلية */
-    background-color: #f4f4f4; /* خلفية فاتحة للجانب الأيمن */
+    align-items: center; /* محاذاة الفورم في الوسط عموديًا */
+    justify-content: center; /* محاذاة الفورم في الوسط أفقيًا */
+    padding: 2rem; /* مساحة داخلية لتنظيم الفورم */
 }
 
 .wrapper {
     width: 100%;
     max-width: 360px; /* تحديد أقصى عرض للفورم */
-    background-color: white;
     padding: 20px;
+    background-color: white; /* خلفية بيضاء لزيادة الوضوح */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* إضافة ظل خفيف للفورم */
     border-radius: 8px; /* تقريب حواف الفورم */
 }
@@ -44,7 +45,7 @@ body {
 .input-container,
 .email-input-container,
 .password-input-container {
-    margin-bottom: 15px; /* توفير فاصل بين عناصر الإدخال */
+    margin-bottom: 15px; /* فواصل بين حقول الإدخال */
 }
 
 input[type="text"],
@@ -67,5 +68,5 @@ input[type="password"] {
 }
 
 #register-button:hover {
-    opacity: 0.9; /* تغيير الشفافية عند الهوفر */
+    opacity: 0.9; /* تغيير الشفافية عند التحويم */
 }
