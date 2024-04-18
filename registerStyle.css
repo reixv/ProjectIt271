@@ -8,7 +8,7 @@ body {
 .page-container {
     display: flex;
     min-height: 100vh; /* استخدام الارتفاع الأدنى لتغطية كامل الشاشة */
-    align-items: stretch; /* مط العناصر لتغطية كامل الارتفاع */
+    align-items: center; /* محاذاة العناصر في المنتصف عموديًا */
 }
 
 .left-side {
@@ -16,12 +16,11 @@ body {
     display: flex;
     align-items: center; /* محاذاة الصورة في المنتصف عموديًا */
     justify-content: center; /* محاذاة الصورة في المنتصف أفقيًا */
-    overflow: hidden;
 }
 
 .left-side img {
-    max-width: 50%; /* تحديد العرض الأقصى للصورة */
-    max-height: 100%; /* تحديد الارتفاع الأقصى للصورة */
+    width: auto; /* السماح للصورة بالتكيف حسب ارتفاعها */
+    height: 100%; /* الارتفاع الكامل للجانب الأيسر */
     object-fit: cover; /* تغطية المساحة المتاحة دون فقدان نسب الصورة */
 }
 
@@ -34,7 +33,7 @@ body {
 }
 
 .wrapper {
-    width: 100%;
+    width: 100%; /* العرض الكامل داخل المساحة المخصصة */
     max-width: 360px; /* تحديد أقصى عرض للفورم */
     padding: 20px;
     background-color: white; /* خلفية بيضاء لزيادة الوضوح */
