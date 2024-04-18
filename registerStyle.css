@@ -1,95 +1,71 @@
 body {
-    font-family: chloe;
+    font-family: 'Chloe', sans-serif; /* تحديث الخط */
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* منع التمرير الأفقي إذا تجاوزت الصورة الحجم */
 }
 
 .page-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.grid-container {
-    display: flex;
-    width: 100%;
+    min-height: 100vh; /* استخدام الارتفاع الأدنى لتغطية كامل الشاشة */
+    align-items: stretch; /* مط العناصر لتغطية كامل الارتفاع */
 }
 
 .left-side {
-    width: 50%; /* تحديد نسبة 50% من الشاشة للصورة */
-    position: relative; /* لتحديد موضع الصورة بشكل نسبي */
-    overflow: hidden;
+    flex-basis: 50%; /* تحديد أساس الفليكس للجانب الأيسر */
+    position: relative;
+    overflow: hidden; /* منع الصورة من التجاوز */
 }
 
 .left-side img {
     width: 100%;
-    height: 100vh; /* تغطية كامل ارتفاع الشاشة */
-    object-fit: cover; /* لتغطية الجانب الأيسر بأكمله دون تشوه */
+    height: 100%;
+    object-fit: cover; /* تغطية الجانب بالكامل دون تشوه */
 }
 
 .right-side {
-    flex: 1;
-    padding: 20px; /* مساحة داخلية لتنظيم المحتويات */
-}
-
-.img-and-text {
-    position: relative;
-    z-index: 2; /* لجعل النص فوق الصورة إذا لزم الأمر */
+    flex-basis: 50%; /* تحديد أساس الفليكس للجانب الأيمن */
+    display: flex;
+    align-items: center; /* محاذاة الفورم في الوسط */
+    justify-content: center;
+    padding: 2rem; /* توفير بعض المساحة الداخلية */
+    background-color: #f4f4f4; /* خلفية فاتحة للجانب الأيمن */
 }
 
 .wrapper {
-    max-width: 300px;
+    width: 100%;
+    max-width: 360px; /* تحديد أقصى عرض للفورم */
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* إضافة ظل خفيف للفورم */
+    border-radius: 8px; /* تقريب حواف الفورم */
 }
 
-.sign-up-buttons {
-    margin-bottom: 20px;
+.input-container,
+.email-input-container,
+.password-input-container {
+    margin-bottom: 15px; /* توفير فاصل بين عناصر الإدخال */
 }
 
-#sign-up {
-    background-color: #4285F4;
-    color: white;
-}
-
-.form-container {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.input-container {
-    margin-bottom: 10px;
-}
-
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.agreement-check {
-    margin-bottom: 20px;
-}
-
-.terms-of-use-text {
-    font-size: 14px;
 }
 
 #register-button {
     width: 100%;
     padding: 10px;
+    background-color: #4285F4; /* لون أزرق فاتح */
+    color: white;
     border: none;
     border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
     cursor: pointer;
 }
 
 #register-button:hover {
-    opacity: 0.8;
+    opacity: 0.9; /* تغيير الشفافية عند الهوفر */
 }
