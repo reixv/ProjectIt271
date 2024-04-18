@@ -39,7 +39,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </div>
 
             <div class="form-group">
-    <label for="phone"> Phone No</label>
+    <label for="phone"> Phone Number:</label>
     <div class="input-with-flag">
         <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
     </div>
@@ -93,7 +93,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 
 
-<?php
+    <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -125,32 +125,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $to = $conn->real_escape_string($_POST["to"]);
     $date = $conn->real_escape_string($_POST["date"]);
 
-    // التحقق من صيغة الهاتف
-    if (!preg_match("/^\+966\d{9}$/", $phone)) {
-        echo "<script>alert('Please enter a valid Saudi phone number starting with +966.');</script>";
+    $today = date("Y-m-d");
+    if ($date < $today) {
+        echo "<script>alert('Please select a future date for your visit.');</script>";
     } else {
-        // إدراج البيانات إلى قاعدة البيانات في حال كان الرقم صحيحًا
-        $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
-
-        if ($stmt->execute()) {
-            echo "<h1>Booking Confirmation</h1>";
-            echo "<p>First Name: " . htmlspecialchars($firstname) . "</p>";
-            echo "<p>Last Name: " . htmlspecialchars($lastname) . "</p>";
-            echo "<p>Email: " . htmlspecialchars($email) . "</p>";
-            echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
-            echo "<p>Age: " . htmlspecialchars($age) . "</p>";
-            echo "<p>Bringing Guests: " . htmlspecialchars($guests) . "</p>";
-            if ($guests == 'yes') {
-                echo "<p>Number of Guests: " . htmlspecialchars($guestNumber) . "</p>";
-            }
-            echo "<p>Activity: " . htmlspecialchars($to) . "</p>";
-            echo "<p>Date of Visit: " . htmlspecialchars($date) . "</p>";
+        if (!preg_match("/^\+966\d{9}$/", $phone)) {
+            echo "<script>alert('Please enter a valid Saudi phone number starting with +966.');</script>";
         } else {
-            echo "Error: " . $stmt->error;
-        }
+            $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
 
-        $stmt->close();
+            if ($stmt->execute()) {
+                echo "<h1>Booking Confirmation</h1>";
+                echo "<p>First Name: " . htmlspecialchars($firstname) . "</p>";
+                echo "<p>Last Name: " . htmlspecialchars($lastname) . "</p>";
+                echo "<p>Email: " . htmlspecialchars($email) . "</p>";
+                echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
+                echo "<p>Age: " . htmlspecialchars($age) . "</p>";
+                echo "<p>Bringing Guests: " . htmlspecialchars($guests) . "</p>";
+                if ($guests == 'yes') {
+                    echo "<p>Number of Guests: " . htmlspecialchars($guestNumber) . "</p>";
+                }
+                echo "<p>Activity: " . htmlspecialchars($to) . "</p>";
+                echo "<p>Date of Visit: " . htmlspecialchars($date) . "</p>";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+            $stmt->close();
+        }
     }
     $conn->close();
 }
