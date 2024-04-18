@@ -7,40 +7,35 @@ body {
 
 .page-container {
     display: flex;
+    flex-direction: row-reverse; /* جعل الفورم يظهر على اليمين */
     min-height: 100vh; /* استخدام الارتفاع الأدنى لتغطية كامل الشاشة */
-    align-items: center; /* محاذاة العناصر في المنتصف عموديًا */
 }
 
 .left-side {
-    width: 50%; /* نصف الشاشة للصورة */
+    width: 50%; /* الجانب الأيسر للصورة */
     display: flex;
-    align-items: center; /* محاذاة الصورة في المنتصف عموديًا */
-    justify-content: center; /* محاذاة الصورة في المنتصف أفقيًا */
+    justify-content: flex-end; /* محاذاة الصورة للحافة اليسرى */
 }
 
 .left-side img {
-    width: auto; /* السماح للصورة بالتكيف حسب ارتفاعها */
-    height: 100%; /* الارتفاع الكامل للجانب الأيسر */
+    width: 100%; /* العرض الكامل للجانب الأيسر */
+    height: auto;
     object-fit: cover; /* تغطية المساحة المتاحة دون فقدان نسب الصورة */
 }
 
 .right-side {
-    width: 50%; /* نفس المساحة للفورم */
+    width: 50%; /* الجانب الأيمن للفورم */
     display: flex;
+    justify-content: flex-start; /* محاذاة الفورم للحافة اليمنى */
     align-items: center; /* محاذاة الفورم في الوسط عموديًا */
-    justify-content: center; /* محاذاة الفورم في الوسط أفقيًا */
     padding: 2rem; /* مساحة داخلية لتنظيم الفورم */
 }
 
 .wrapper {
-    width: 100%; /* العرض الكامل داخل المساحة المخصصة */
+    width: 100%;
     max-width: 360px; /* تحديد أقصى عرض للفورم */
-    padding: 20px;
-    background-color: white; /* خلفية بيضاء لزيادة الوضوح */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* إضافة ظل خفيف للفورم */
-    border-radius: 8px; /* تقريب حواف الفورم */
+    /* باقي الأنماط للفورم كما هي */
 }
-
 .input-container,
 .email-input-container,
 .password-input-container {
