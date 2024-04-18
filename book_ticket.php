@@ -1,5 +1,7 @@
+
+
 <?php
-session_start(); // بدء جلسة جديدة
+session_start();//  بدء جلسة جديدة
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: login.php");
@@ -80,6 +82,63 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </form>
     </div>
 
+    <?php
+session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("location: login.php");
+    exit;
+}
+
+require 'config.php';
+$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstname = $conn->real_escape_string($_POST["firstname"]);
+    $lastname = $conn->real_escape_string($_POST["lastname"]);
+    $email = $conn->real_escape_string($_POST["email"]);
+    $phone = $conn->real_escape_string($_POST["phone"]);
+    $age = $conn->real_escape_string($_POST["age"]);
+    $guests = $conn->real_escape_string($_POST["guests"]);
+    $guestNumber = isset($_POST["guestNumber"]) ? $conn->real_escape_string($_POST["guestNumber"]) : "N/A";
+    $to = $conn->real_escape_string($_POST["to"]);
+    $date = $conn->real_escape_string($_POST["date"]);
+
+    $today = date("Y-m-d");
+    if ($date < $today) {
+        echo "<script>alert('Please select a future date for your visit.');</script>";
+    } else {
+        $stmt = $conn->prepare("INSERT INTO tickets (firstname, lastname, email, phone, age, guests, guestNumber, to_activity, date_of_visit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssisssi", $firstname, $lastname, $email, $phone, $age, $guests, $guestNumber, $to, $date);
+
+        if ($stmt->execute()) {
+            echo "<h1>Booking Confirmation</h1>";
+            echo "<p>First Name: " . htmlspecialchars($firstname) . "</p>";
+            echo "<p>Last Name: " . htmlspecialchars($lastname) . "</p>";
+            echo "<p>Email: " . htmlspecialchars($email) . "</p>";
+            echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
+            echo "<p>Age: " . htmlspecialchars($age) . "</p>";
+            echo "<p>Bringing Guests: " . htmlspecialchars($guests) . "</p>";
+            if ($guests == 'yes') {
+                echo "<p>Number of Guests: " . htmlspecialchars($guestNumber) . "</p>";
+            }
+            echo "<p>Activity: " . htmlspecialchars($to) . "</p>";
+            echo "<p>Date of Visit: " . htmlspecialchars($date) . "</p>";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    }
+    $conn->close();
+}
+?>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const guestsYesRadio = document.querySelector('input[name="guests"][value="yes"]');
@@ -101,42 +160,3 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </script>
 </body>
 </html>
-<?php
-
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("location: login.php");
-    exit;
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // استقبال البيانات من النموذج
-    $firstname = $_POST["firstname"];
-    $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $phone = $_POST["phone"];
-    $age = $_POST["age"];
-    $guests = $_POST["guests"];
-    $guestNumber = isset($_POST["guestNumber"]) ? $_POST["guestNumber"] : "N/A";
-    /*$from = $_POST["from"];*/
-    $to = $_POST["to"];
-    $date = $_POST["date"];
-    /*$class = $_POST["class"];*/
-
-    // هنا يمكنك إضافة كود لتخزين هذه البيانات في قاعدة البيانات أو إجراء معالجات أخرى
-    // عرض معلومات المستخدم للتأكيد
-    echo "<h2>User Information:</h2>";
-    echo "<p><strong>First Name:</strong> $firstname</p>";
-    echo "<p><strong>Last Name:</strong> $lastname</p>";
-    echo "<p><strong>Email Address:</strong> $email</p>";
-    echo "<p><strong>Phone Number:</strong> $phone</p>";
-    echo "<p><strong>Age:</strong> $age</p>";
-    echo "<p><strong>Bringing additional guests:</strong> $guests</p>";
-    if ($guests == 'yes') {
-        echo "<p><strong>Number of Guests:</strong> $guestNumber</p>";
-    }
-    /*echo "<p><strong>From:</strong> $from</p>";*/
-    echo "<p><strong>To Activity:</strong> $to</p>";
-    echo "<p><strong>Date of Visit:</strong> $date</p>";
-    /*echo "<p><strong>Class:</strong> $class</p>";*/
-}
-?>
