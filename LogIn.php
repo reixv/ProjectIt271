@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +12,7 @@
     <div class="page-container">
       <div class="grid-container">
         <div class="left-side">
-          <div class="img-and-text">
-            <img class="cart-illustration" src="" alt="Cart Illustration">
-          </div>
+          <!-- حذفت الصورة من هنا -->
         </div>
         <div class="right-side">
           <div class="wrapper">
@@ -68,7 +65,7 @@ if (isset($_POST["login"])) {
             $_SESSION["loggedin"] = true;
             $_SESSION["user_id"] = $row["id"];
             $_SESSION["user_email"] = $row["email"];
-            header("location: book_ticket.php");
+            header("location: visitSaudi.php");
             exit;
         } else {
             echo "Invalid password!";

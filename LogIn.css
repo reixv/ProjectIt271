@@ -22,6 +22,9 @@ body {
 .left-side {
     display: flex;
     align-items: center;
+    background-image: url('welcomeSaudi.jpg'); /* إضافة صورة الخلفية */
+    background-size: cover; /* تغطية المساحة بالكامل */
+    background-position: center; /* مركز الصورة في الجزء الأيسر */
 }
 
 .right-side {
