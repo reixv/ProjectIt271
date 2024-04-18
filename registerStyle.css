@@ -21,6 +21,8 @@ body {
 .left-side {
     flex: 1; /* تعطي الجانب الأيسر فليكسيبيليتي لشغل نصف الصفحة */
     /* لا حاجة لتحديد width للصورة هنا لأنه محدد في HTML بـ 100% */
+    width: 50%; /* يمكن تحديد العرض بـ 50% لضمان ذلك */
+    overflow: hidden; /* يمنع أي تجاوز للمحتوى خارج هذا العنصر */
 }
 
 
@@ -37,6 +39,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
+    width: 50%; /* تحديد العرض بـ 50% للجانب الآخر */
 }
 
 .wrapper {
