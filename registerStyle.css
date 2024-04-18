@@ -1,88 +1,75 @@
-/* CSS styles for registration page */
 body, html {
-    height: 100%; /* يضمن امتلاء الصفحة بالكامل */
-    margin: 0; /* يزيل الهوامش الافتراضية */
-    font-family: 'chloe', sans-serif; /* تحديد نوع الخط */
+    height: 100%;
+    margin: 0;
+    font-family: 'chloe', sans-serif;
 }
 
 .page-container {
-    display: flex; /* يستخدم فليكسبوكس لترتيب العناصر داخل الصفحة */
-    flex-direction: row; /* ترتيب العناصر في صف أفقي */
-    height: 100%; /* الارتفاع يملأ الصفحة بالكامل */
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Use 100vh to ensure it takes full viewport height */
 }
 
 .left-side {
-    flex: 1; /* يستخدم نفس المساحة مثل الجانب الأيمن */
-    background: url('WelcomeSaudi.jpg') no-repeat center center; /* تحديد صورة الخلفية ومكانها */
-    background-size: cover; /* تغطية المساحة بالكامل بدون تكرار */
+    flex: 1;
+    background: url('WelcomeSaudi.jpg') no-repeat center center;
+    background-size: cover;
 }
 
 .right-side {
-    flex: 1; /* يستخدم نفس المساحة مثل الجانب الأيسر */
-    display: flex; /* يستخدم فليكسبوكس لترتيب العناصر داخله */
-    align-items: center; /* محاذاة العناصر في المنتصف عموديا */
-    justify-content: center; /* محاذاة العناصر في المنتصف أفقيا */
+    flex: 1;
+    display: flex;
+    align-items: center; /* Center-align the content vertically */
+    justify-content: center; /* Center-align the content horizontally */
 }
 
 .wrapper {
-    width: 90%; /* العرض نسبة من الجانب الأيمن */
-    max-width: 400px; /* الحد الأقصى للعرض */
-    padding: 20px; /* الحشو حول المحتويات */
-    position: absolute; /* موقع مطلق داخل الجانب الأيمن */
-    right: 0; /* التموضع من الجانب الأيمن */
-    top: 50%; /* تموضع وسطي عموديا */
-    transform: translateY(-50%); /* تصحيح الوضع العمودي */
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
 }
 
 .input-container, .email-input-container, .password-input-container {
-    margin-bottom: 20px; /* هامش أسفل كل حاوية إدخال */
-    position: relative; /* لتحديد موقع الأيقونات بشكل نسبي */
-}
-
-.icon-email, .icon-password {
-    position: absolute; /* تموضع مطلق داخل حاوية الإدخال */
-    left: 10px; /* المسافة من اليسار */
-    top: 50%; /* المسافة من الأعلى */
-    transform: translateY(-50%); /* تعديل الموضع العمودي للمركز */
+    margin-bottom: 20px;
 }
 
 input[type="text"], input[type="email"], input[type="password"] {
-    width: 100%; /* العرض الكامل للحاوية */
-    padding: 10px 10px 10px 40px; /* الحشو لترك مكان للأيقونة */
-    border: 1px solid #ccc; /* إطار خفيف */
-    border-radius: 5px; /* تقريب الزوايا */
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 #register-button {
-    background-color: #4CAF50; /* لون الخلفية للزر */
-    color: white; /* لون النص */
-    border: none; /* بدون إطار */
-    padding: 10px; /* حشو داخلي للزر */
-    width: 100%; /* عرض كامل */
-    border-radius: 5px; /* تقريب الزوايا */
-    cursor: pointer; /* تغيير شكل المؤشر */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #register-button:hover {
-    background-color: #45a049; /* تغيير لون الخلفية عند التحويم */
+    background-color: #45a049;
 }
 
 h2, p {
-    text-align: center; /* محاذاة النص في المنتصف */
+    text-align: center;
 }
 
 .socials-divider span {
-    background-color: #fff; /* لون الخلفية للنص */
-    padding: 0 10px; /* حشو حول النص */
+    background-color: #fff;
+    padding: 0 10px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) { /* Adjust the breakpoint as needed */
     .page-container {
-        flex-direction: column; /* تغيير التوجيه إلى عمودي عند الحاجة */
+        flex-direction: column;
     }
 
     .left-side, .right-side {
-        width: 100%; /* تعديل العرض للامتلاء التام */
-        flex: none; /* إلغاء الفلكسبوكس */
+        width: 100%;
+        flex: none;
     }
 }

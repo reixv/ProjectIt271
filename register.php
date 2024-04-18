@@ -1,53 +1,3 @@
-<?php
-session_start();
-
-if(isset($_POST["register"])) {
-    // تعقيم ومعالجة البيانات المرسلة
-    $first_name = htmlspecialchars($_POST["first_name"]);
-    $last_name = htmlspecialchars($_POST["last_name"]);
-    $email = htmlspecialchars($_POST["email_address"]);
-    $password = $_POST["password"];
-
-    // تشفير كلمة المرور
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // الاتصال بقاعدة البيانات
-    $servername = "localhost";
-    $username = "root";
-    $db_password = "";
-    $dbname = "login";
-
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // استعلام SQL باستخدام prepared statement
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "This email address is already registered.";
-    } else {
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
-        if ($stmt->execute()) {
-            echo "Account has been successfully registered";
-        } else {
-            echo "An error occurred while registering the account: " . $stmt->error;
-        }
-    }
-    $stmt->close();
-    $conn->close();
-}
-?>
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -111,6 +61,53 @@ if(isset($_POST["register"])) {
       </div>
     </div>
   </main>
+  <?php
+session_start();
+
+if(isset($_POST["register"])) {
+    // تعقيم ومعالجة البيانات المرسلة
+    $first_name = htmlspecialchars($_POST["first_name"]);
+    $last_name = htmlspecialchars($_POST["last_name"]);
+    $email = htmlspecialchars($_POST["email_address"]);
+    $password = $_POST["password"];
+
+    // تشفير كلمة المرور
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // الاتصال بقاعدة البيانات
+    $servername = "localhost";
+    $username = "root";
+    $db_password = "";
+    $dbname = "login";
+
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // استعلام SQL باستخدام prepared statement
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        echo "This email address is already registered.";
+    } else {
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
+        if ($stmt->execute()) {
+            echo "Account has been successfully registered";
+        } else {
+            echo "An error occurred while registering the account: " . $stmt->error;
+        }
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+
 </body>
 </html>
 s
