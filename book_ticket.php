@@ -87,6 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label for="phone">Phone Number:</label>
+                <div class="input-with-flag">
+                    <img src="saudi-flag.pngg" alt="Saudi Flag" class="flag-icon">
                 <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
             </div>
             <div class="form-group">
