@@ -38,10 +38,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <input type="email" id="email" name="email" required>
             </div>
 
-     <div class="form-group input-with-flag">
-                <label for="phone">Phone No. </label>
-                <input type="tel" id="phone" name="phone" placeholder="5xxxxxxxx" required>
-            </div>
+            <div class="form-group">
+    <label for="phone"> Phone No</label>
+    <div class="input-with-flag">
+        <input type="tel" id="phone" name="phone" pattern="\+966\d{9}" title="+966 followed by 9 digits" required>
+    </div>
+</div>
 
             <div class="form-group">
                 <label for="age">Age:</label>
