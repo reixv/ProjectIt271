@@ -57,13 +57,12 @@
     <div class="swiper-wrapper">
       <!-- صور -->\
 
-      <div class="swiper-slide"><img src="flaf.png" alt=""></div>
       <!-- فيديو -->
       <div class="swiper-slide">
-        <video controls style="width: 100%; height: 100%; object-fit: cover;">
-          <source src="LandScape.mp4" type="video/mp4">
-        </video>
-      </div>
+  <video controls autoplay loop muted style="width: 100%; height: 100%; object-fit: cover;">
+    <source src="LandScape.mp4" type="video/mp4">
+  </video>
+</div>
     </div>
     <!-- If we need pagination -->
     <div class="swiper-pagination"></div>
