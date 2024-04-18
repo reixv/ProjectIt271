@@ -1,43 +1,34 @@
-
 body, html {
-    width: 100%; /* يضمن تغطية العرض الكامل */
-    height: 100%; /* يضمن تغطية الارتفاع الكامل */
-    margin: 0; /* إزالة الهوامش الافتراضية */
-    padding: 0; /* إزالة التبطين الافتراضي */
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: chloe;
+    overflow-x: hidden; /* منع الأفقي المتداخل */
 }
 
 .page-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* تأكيد على أن العرض يمتد على الشاشة بأكملها */
-    height: 100vh; /* يضمن أن الحاوية الرئيسية تأخذ ارتفاع الشاشة بالكامل */
-    overflow: hidden; /* منع أي تمدد خارج هذا العنصر */
+    width: 100vw;
+    height: 100vh;
 }
 
 .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 100%; /* تأكيد على أن العرض يمتد على الشاشة بأكملها */
-    height: 100%; /* تأكيد على أن الارتفاع يمتد لكامل الارتفاع */
-    max-width: 800px; /* يمكنك تعديل هذا العرض حسب الحاجة */
-    margin: 0 auto; /* لضمان عدم وجود هوامش إضافية */
+    display: flex; /* تغيير إلى flex للتحكم الأفضل بالتوزيع */
+    width: 100%;
+    height: 100%;
 }
 
 .left-side {
-    flex: 1 1 50%; /* يأخذ دائماً نصف العرض */
-    background-image: url('welcomeSaudi.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 50%; /* ضمان عدم تغير حجم هذا الجزء */
+    background: url('welcomeSaudi.jpg') no-repeat center center;
+    background-size: cover; /* تغطية المساحة بالكامل */
 }
 
 .right-side {
-    flex: 1 1 50%; /* يأخذ دائماً نصف العرض */
+    flex: 1; /* يأخذ الباقي من المساحة */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,7 +55,7 @@ label {
 
 .input-container {
     position: relative;
-    margin-bottom: 20px; /* زيادة المسافة بين الحقول */
+    margin-bottom: 20px;
 }
 
 .input-container i {
@@ -91,7 +82,7 @@ input[type="email"], input[type="password"] {
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
-    margin-top: 10px; /* زيادة المسافة بين زر الدخول وحقل كلمة المرور */
+    margin-top: 10px;
 }
 
 #login-button:hover {
